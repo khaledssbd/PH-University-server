@@ -1,5 +1,11 @@
 // Creating all Type or Interface
-export type Guardian = {
+export interface UserName {
+  firstName: string;
+  middleName?: string;
+  lastName: string;
+};
+
+export interface Guardian {
   fatherName: string;
   fatherOccupation: string;
   fatherContactNo: string;
@@ -8,19 +14,15 @@ export type Guardian = {
   motherContactNo: string;
 };
 
-export type UserName = {
-  firstName: string;
-  middleName: string;
-  lastName: string;
-};
-export type localGuardian = {
+export interface localGuardian {
   name: string;
   occupation: string;
   contactNo: string;
   address: string;
 };
 
-export type Student = {
+// main interface
+export interface Student {
   id: string;
   name: UserName;
   gender: 'male' | 'female';

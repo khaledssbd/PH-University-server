@@ -1,8 +1,8 @@
 import { Schema, model } from 'mongoose';
-import { Guardian, Student, localGuardian } from './student/student.interface';
+import { Guardian, Student, UserName, localGuardian } from './student/student.interface';
 
 // creating All Schema
-const UserNameSchema = new Schema({
+const UserNameSchema = new Schema<UserName>({
   firstName: { type: String, required: true },
   middleName: { type: String },
   lastName: { type: String, required: true },
