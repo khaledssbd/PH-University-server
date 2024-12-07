@@ -1,9 +1,9 @@
 import express, { Application, Request, Response } from 'express';
 // const express = require('express');
 import cors from 'cors';
-import { studentRoutes } from './app/modules/student/student.route';
-import { userRoutes } from './app/modules/user/user.route';
-import  globalErrorHandler from './app/middlewares/globalErrorHandler';
+import { StudentRoutes } from './app/modules/student/student.route';
+import { UserRoutes } from './app/modules/user/user.route';
+import globalErrorHandler from './app/middlewares/globalErrorHandler';
 import notFound from './app/middlewares/notFound';
 import router from './app/routes';
 
@@ -16,14 +16,22 @@ app.use(cors());
 // api/v1/students/create-student
 app.use('/api/v1', router);
 
-// global error handler (four parameters error handler)
+// const test = async (req: Request, res: Response) => {
+//   // Promise.reject();
+//   const a = 10;
+//   res.send(a);
+// };
+
+// app.get('/', test);
+
+// global error handling middleware (four parameters error handler) (must be in botom)
 app.use(globalErrorHandler);
 
-// Not Found
-app.use(notFound)
+// Not Found page (Route is not found)  (must be in botom)
+app.use(notFound);
 
 app.get('/', (req: Request, res: Response) => {
-  res.send('Hello World From Khaled!');
+  res.send('Hello World From Khaled! ✨');
 });
 
 export default app;

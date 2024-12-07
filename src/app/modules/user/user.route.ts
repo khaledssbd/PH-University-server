@@ -1,15 +1,15 @@
 import express from 'express';
-import { userControllers } from './user.controller';
+import { UserControllers } from './user.controller';
+import validateRequest from '../../middlewares/validateRequest';
+import { studentvalidations } from '../student/student.validation';
 
 const router = express.Router();
 
-// will call controller function
-router.post('/create-student', userControllers.createStudent);
+// middleware with controller function
+router.post(
+  '/create-student',
+  validateRequest(studentvalidations.createStudentValidationSchema), // middleware for validation
+  UserControllers.createStudent, // controller function
+);
 
-// router.get('/', userControllers.getAllUsers);
-
-// router.get('/:userId', userControllers.getUserById);
-
-// router.delete('/:userId', userControllers.deleteUserById);
-
-export const userRoutes = router;
+export const UserRoutes = router;

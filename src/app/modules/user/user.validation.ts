@@ -1,8 +1,9 @@
 import { z } from 'zod';
 // in zod by default every field is required.. for optional must use .optional()
 
-const userSchema = z.object({
+const userValidationSchema = z.object({
   // id: z.string(),
+  // email: z.string().trim().email({ message: 'Invalid email address' }),
   password: z
     .string({
       // required_error: 'Password is required',
@@ -16,3 +17,7 @@ const userSchema = z.object({
   // status: z.enum(['in-progress', 'blocked']).optional().default('in-progress'),
   // isDeleted: z.boolean().optional().default(false),
 });
+
+export const userValidations = {
+  userValidationSchema,
+};

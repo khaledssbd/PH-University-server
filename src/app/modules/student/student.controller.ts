@@ -1,73 +1,85 @@
-import { NextFunction, Request, Response } from 'express';
-import { studentServices } from './student.service';
+import { StudentServices } from './student.service';
 import sendResponse from '../../utils/sendResponse';
 import httpStatus from 'http-status';
-// import joiStudentValidationSchema from './student.joi.validation';
+import catchAsync from '../../utils/catchAsync';
 
-const getAllStudents = async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const result = await studentServices.getAllStudentsFromDB();
+const getAllStudents = catchAsync(async (req, res) => {
+  const result = await StudentServices.getAllStudentsFromDB(req.query);
 
-    // res.status(200).json({
-    //   success: true,
-    //   message: 'All students retrieved successfully',
-    //   data: result,
-    // });
-    sendResponse(res, {
-      statusCode: httpStatus.FOUND,
-      success: true,
-      message: 'All students retrieved successfully!',
-      data: result,
-    });
-  } catch (err) {
-    next(err)
-  }
-};
+  // res.status(200).json({
+  //   success: true,
+  //   message: 'All students retrieved successfully',
+  //   data: result,
+  // });
 
-const getStudentById = async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const { studentId } = req.params;
-    const result = await studentServices.getSingleStudentFromDB(studentId);
+  sendResponse<any>(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'All students retrieved successfully!',
+    data: result,
+  });
+});
 
-    // res.status(200).json({
-    //   success: true,
-    //   message: 'Student retrieved successfully',
-    //   data: result,
-    // });
-    sendResponse(res, {
-      statusCode: httpStatus.FOUND,
-      success: true,
-      message: 'Student retrieved successfully',
-      data: result,
-    });
-  } catch (err) {
-    next(err);
-  }
-};
+const getStudentById = catchAsync(async (req, res) => {
+  const { studentId } = req.params;
+  const result = await StudentServices.getSingleStudentFromDB(studentId);
 
-const deleteStudentById = async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const { studentId } = req.params;
-    const result = await studentServices.deleteStudentFromDB(studentId);
+  // res.status(200).json({
+  //   success: true,
+  //   message: 'Student retrieved successfully',
+  //   data: result,
+  // });
 
-    // res.status(200).json({
-    //   success: true,
-    //   message: 'Student deleted successfully',
-    //   data: result,
-    // });
-    sendResponse(res, {
-      statusCode: httpStatus.FOUND,
-      success: true,
-      message: 'Student deleted successfully!',
-      data: result,
-    });
-  } catch (err) {
-    next(err);
-  }
-};
+  sendResponse<any>(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Student retrieved successfully',
+    data: result,
+  });
+});
 
-export const studentControllers = {
+const updateStudentById = catchAsync(async (req, res) => {
+  const { studentId } = req.params;
+  const { student } = req.body;
+  const result = await StudentServices.updateStudentIntoDB(studentId, student);
+
+  // res.status(200).json({
+  //   success: true,
+  //   message: 'Student retrieved successfully',
+  //   data: result,
+  // });
+
+  sendResponse<any>(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Student retrieved successfully',
+    data: result,
+  });
+});
+
+const deleteStudentById = catchAsync(async (req, res) => {
+  const { studentId } = req.params;
+  const result = await StudentServices.deleteStudentFromDB(studentId);
+
+  // res.status(200).json({
+  //   success: true,
+  //   message: 'Student deleted successfully',
+  //   data: result,
+  // });
+
+  sendResponse<any>(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Student deleted successfully!',
+    data: result,
+  });
+});
+
+
+
+export const StudentControllers = {
   getAllStudents,
   getStudentById,
+  updateStudentById,
   deleteStudentById,
 };

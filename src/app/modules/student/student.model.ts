@@ -4,7 +4,7 @@ import {
   TGuardian,
   TStudent,
   // StudentMethods,
-  StudentModel,
+  TStudentModel,
   TUserName,
   TLocalGuardian,
 } from './student.interface';
@@ -103,7 +103,7 @@ const localGuardianSchema = new Schema<TLocalGuardian>({
 });
 
 // for static method
-const studentSchema = new Schema<TStudent, StudentModel>(
+const studentSchema = new Schema<TStudent, TStudentModel>(
   {
     id: {
       type: String,
@@ -133,9 +133,8 @@ const studentSchema = new Schema<TStudent, StudentModel>(
       trim: true,
     },
     dateOfBirth: {
-      type: String,
-      required: [true, 'Student Date of Birth is required'],
-      trim: true,
+      type: Date,
+      // required: [true, 'Student Date of Birth is required'],
     },
     email: {
       type: String,
@@ -186,6 +185,7 @@ const studentSchema = new Schema<TStudent, StudentModel>(
       required: [true, 'Student Local Guardian is required'],
     },
     profileImg: { type: String },
+    admissionSemester: { type: Schema.Types.ObjectId, ref: 'AcademicSemester' },
     isDeleted: { type: Boolean, default: false },
   },
   {
@@ -309,7 +309,7 @@ const studentSchema = new Schema<TStudent, StudentModel>(
 // mongodb virtual
 
 studentSchema.virtual('fullName').get(function () {
-  return `${this.name.firstName} ${this.name.middleName} ${this.name.lastName}`;
+  return `${this?.name?.firstName} ${this?.name?.middleName} ${this?.name?.lastName}`;
 });
 
 // Document middleware
@@ -368,4 +368,4 @@ studentSchema.statics.isUserExists = async function (id: string) {
 // studentSchema.statics.isUserExists = async (id: string) => await Student.findOne({ id })
 
 // for instance and static method
-export const Student = model<TStudent, StudentModel>('Student', studentSchema);
+export const Student = model<TStudent, TStudentModel>('Student', studentSchema);

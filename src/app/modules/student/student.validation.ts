@@ -1,9 +1,10 @@
-import { z } from "zod";
+import { z } from 'zod';
 
 // schema validation using zod
+// in zod by default every field is required.. for optional must use .optional()
 
 // UserName Schema
-const UserNameZodSchema = z.object({
+const createUserNameValidationSchema = z.object({
   firstName: z
     .string()
     .trim()
@@ -29,7 +30,7 @@ const UserNameZodSchema = z.object({
 });
 
 // Guardian Schema
-const GuardianZodSchema = z.object({
+const createGuardianValidationSchema = z.object({
   fatherName: z.string().trim().min(1, { message: 'Father Name is required' }),
   fatherOccupation: z
     .string()
@@ -51,7 +52,7 @@ const GuardianZodSchema = z.object({
 });
 
 // Local Guardian Schema
-const LocalGuardianZodSchema = z.object({
+const createLocalGuardianValidationSchema = z.object({
   name: z
     .string()
     .trim()
@@ -71,51 +72,152 @@ const LocalGuardianZodSchema = z.object({
 });
 
 // Student Schema
-const zodStudentValidationSchema = z.object({
-  id: z.string().trim().min(1, { message: 'Student ID is required' }),
-  password: z
-    .string()
-    .trim()
-    .min(8, { message: 'Password must be at least 8 characters long' }),
-  name: UserNameZodSchema,
-  gender: z.enum(['male', 'female', 'other'], {
-    errorMap: () => ({
-      message: "Gender must be one of 'male', 'female', or 'other'",
+export const createStudentValidationSchema = z.object({
+  body: z.object({
+    password: z
+      .string({
+        // required_error: 'Password is required',
+        invalid_type_error: 'Password must be a string',
+      })
+      .min(8, { message: "Password can't be less then 8 characters" })
+      .max(20, { message: "Password can't be more then 20 characters" })
+      .optional(),
+    student: z.object({
+      name: createUserNameValidationSchema,
+      gender: z.enum(['male', 'female', 'other'], {
+        errorMap: () => ({
+          message: "Gender must be one of 'male', 'female', or 'other'",
+        }),
+      }),
+      dateOfBirth: z.string().optional(),
+      email: z.string().trim().email({ message: 'Invalid email address' }),
+      contactNo: z
+        .string()
+        .trim()
+        .min(1, { message: 'Contact Number is required' }),
+      emergencyContactNo: z
+        .string()
+        .trim()
+        .min(1, { message: 'Emergency Contact Number is required' }),
+      bloodGroup: z
+        .enum(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'])
+        .optional(),
+      presentAddress: z
+        .string()
+        .trim()
+        .min(1, { message: 'Present Address is required' }),
+      permanentAddress: z
+        .string()
+        .trim()
+        .min(1, { message: 'Permanent Address is required' }),
+      guardian: createGuardianValidationSchema,
+      localGuardian: createLocalGuardianValidationSchema,
+      profileImg: z
+        .string()
+        .url({ message: 'Profile Image must be a valid URL' })
+        .optional(),
+      admissionSemester: z.string({
+        required_error: 'Semester is required',
+        invalid_type_error: 'Semester must be a string',
+      }),
     }),
   }),
-  dateOfBirth: z
-    .string()
-    .trim()
-    .min(1, { message: 'Date of Birth is required' }),
-  email: z.string().trim().email({ message: 'Invalid email address' }),
-  contactNo: z
-    .string()
-    .trim()
-    .min(1, { message: 'Contact Number is required' }),
-  emergencyContactNo: z
-    .string()
-    .trim()
-    .min(1, { message: 'Emergency Contact Number is required' }),
-  bloodGroup: z
-    .enum(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'])
-    .optional(),
-  presentAddress: z
-    .string()
-    .trim()
-    .min(1, { message: 'Present Address is required' }),
-  permanentAddress: z
-    .string()
-    .trim()
-    .min(1, { message: 'Permanent Address is required' }),
-  guardian: GuardianZodSchema,
-  localGuardian: LocalGuardianZodSchema,
-  profileImg: z
-    .string()
-    .url({ message: 'Profile Image must be a valid URL' })
-    .optional(),
-  isActive: z.enum(['active', 'blocked']).default('active'),
-  isDeleted: z.boolean(),
 });
 
+const updateUserNameValidationSchema = z.object({
+  firstName: z
+    .string()
+    .trim()
+    .max(15, { message: 'First Name cannot exceed 15 characters' })
+    .refine(
+      (value) =>
+        value.charAt(0) === value.charAt(0).toUpperCase() &&
+        value.slice(1) === value.slice(1).toLowerCase(),
+      { message: 'First Name must be in capitalized format' },
+    )
+    .optional(),
+  middleName: z
+    .string()
+    .trim()
+    .max(15, { message: 'Middle Name cannot exceed 15 characters' })
+    .optional(),
+  lastName: z
+    .string()
+    .trim()
+    .max(15, { message: 'Last Name cannot exceed 15 characters' })
+    .refine((value) => /^[a-zA-Z]+$/.test(value), {
+      message: 'Last Name must only contain alphabets',
+    })
+    .optional(),
+});
 
-export default zodStudentValidationSchema;
+// Guardian Schema
+const updateGuardianValidationSchema = z.object({
+  fatherName: z.string().trim().optional(),
+  fatherOccupation: z.string().trim().optional(),
+  fatherContactNo: z.string().trim().optional(),
+  motherName: z.string().trim().optional(),
+  motherOccupation: z.string().trim().optional(),
+  motherContactNo: z.string().trim().optional(),
+});
+
+// Local Guardian Schema
+const updateLocalGuardianValidationSchema = z.object({
+  name: z.string().trim().optional(),
+  occupation: z.string().trim().optional(),
+  contactNo: z.string().trim().optional(),
+  address: z.string().trim().optional(),
+});
+
+export const updateStudentValidationSchema = z.object({
+  body: z.object({
+    // password: z
+    //   .string({
+    //     // required_error: 'Password is required',
+    //     invalid_type_error: 'Password must be a string',
+    //   })
+    //   .min(8, { message: "Password can't be less then 8 characters" })
+    //   .max(20, { message: "Password can't be more then 20 characters" })
+    //   .optional(),
+    student: z.object({
+      name: updateUserNameValidationSchema.optional(),
+      gender: z
+        .enum(['male', 'female', 'other'], {
+          errorMap: () => ({
+            message: "Gender must be one of 'male', 'female', or 'other'",
+          }),
+        })
+        .optional(),
+      dateOfBirth: z.string().optional(),
+      email: z
+        .string()
+        .trim()
+        .email({ message: 'Invalid email address' })
+        .optional(),
+      contactNo: z.string().trim().optional(),
+      emergencyContactNo: z.string().trim().optional(),
+      bloodGroup: z
+        .enum(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'])
+        .optional(),
+      presentAddress: z.string().trim().optional(),
+      permanentAddress: z.string().trim().optional(),
+      guardian: updateGuardianValidationSchema.optional(),
+      localGuardian: updateLocalGuardianValidationSchema.optional(),
+      profileImg: z
+        .string()
+        .url({ message: 'Profile Image must be a valid URL' })
+        .optional(),
+      admissionSemester: z
+        .string({
+          required_error: 'Semester is required',
+          invalid_type_error: 'Semester must be a string',
+        })
+        .optional(),
+    }),
+  }),
+});
+
+// export const studentvalidations = {
+//   createStudentValidationSchema,
+//   updateStudentValidationSchema,
+// };

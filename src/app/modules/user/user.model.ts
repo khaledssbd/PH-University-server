@@ -2,6 +2,7 @@ import { model, Schema } from 'mongoose';
 import { TUser } from './user.interface';
 import bcrypt from 'bcrypt';
 import config from '../../config';
+import validator from 'validator';
 
 const userSchema = new Schema<TUser>(
   {
@@ -10,13 +11,23 @@ const userSchema = new Schema<TUser>(
       required: true,
       unique: true,
     },
+    // email: {
+    //   type: String,
+    //   required: [true, 'Student Email is required'],
+    //   unique: true,
+    //   trim: true,
+    //   validate: {
+    //     validator: (value: string) => validator.isEmail(value),
+    //     message: '{VALUE} is not a valid email',
+    //   },
+    // },
     password: {
       type: String,
       required: true,
     },
     needsPasswordChange: {
       type: Boolean,
-      default: true,
+      default: true, // default
     },
     role: {
       type: String,
@@ -31,11 +42,11 @@ const userSchema = new Schema<TUser>(
         values: ['in-progress', 'blocked'],
         message: '{VALUE} is not a valid status',
       },
-      default: 'in-progress',
+      default: 'in-progress', // default
     },
     isDeleted: {
       type: Boolean,
-      default: false,
+      default: false, // default
     },
   },
   {
