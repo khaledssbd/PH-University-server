@@ -11,7 +11,9 @@ async function main() {
 
     // all app listening will be here
     server = app.listen(config.port, () => {
-      console.log(`The app is running on port ${config.port}`);
+      console.log(
+        `The app is running on port ${config.port} ✨`,
+      );
     });
   } catch (err) {
     console.log(err);
@@ -22,7 +24,7 @@ main();
 
 // handlling unhandledRejection error
 process.on('unhandledRejection', () => {
-  console.log(`😈 unhandledRejection is detected , shutting down ...`);
+  console.log(`😈 unhandledRejection is detected , shutting down ... 🤷‍♂️`);
   if (server) {
     // if server is running, then close the server gracefully === service clore kore server thamao
     server.close(() => {
@@ -36,6 +38,6 @@ process.on('unhandledRejection', () => {
 
 // handlling uncaughtException error
 process.on('uncaughtException', () => {
-  console.log(`😈 uncaughtException is detected , shutting down ...`);
+  console.log(`😈 uncaughtException is detected , shutting down ... 🤷‍♂️`);
   process.exit(1);
 });
