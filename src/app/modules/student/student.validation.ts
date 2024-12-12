@@ -72,7 +72,7 @@ const createLocalGuardianValidationSchema = z.object({
 });
 
 // Student Schema
-export const createStudentValidationSchema = z.object({
+ const createStudentValidationSchema = z.object({
   body: z.object({
     password: z
       .string({
@@ -169,7 +169,7 @@ const updateLocalGuardianValidationSchema = z.object({
   address: z.string().trim().optional(),
 });
 
-export const updateStudentValidationSchema = z.object({
+const updateStudentValidationSchema = z.object({
   body: z.object({
     // password: z
     //   .string({
@@ -217,7 +217,7 @@ export const updateStudentValidationSchema = z.object({
   }),
 });
 
-// export const studentvalidations = {
-//   createStudentValidationSchema,
-//   updateStudentValidationSchema,
-// };
+export const Studentvalidations = {
+  createStudentValidationSchema,
+  updateStudentValidationSchema,
+};

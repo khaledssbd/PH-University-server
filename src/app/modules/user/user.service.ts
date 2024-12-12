@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
 import config from '../../config';
-import { TAcademicSemester } from '../academicSemester/academicSemester.interface';
 import { AcademicSemester } from '../academicSemester/academicSemester.model';
 import { TStudent } from '../student/student.interface';
 import { Student } from '../student/student.model';
@@ -40,7 +39,7 @@ const createStudentIntoDB = async (password: string, payLoad: TStudent) => {
 
   // Handle case where the academic semester is not found
   if (!admissionSemester) {
-    throw new Error('Academic semester not found');
+    throw new AppError(httpStatus.NOT_FOUND, 'Academic semester not found');
   }
 
   // create a student object

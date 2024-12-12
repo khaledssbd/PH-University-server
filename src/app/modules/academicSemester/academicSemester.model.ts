@@ -5,7 +5,6 @@ import {
   AcademicSemesterName,
   Months,
 } from './academicSemester.constant';
-import { string } from 'joi';
 
 const academicSemesterSchema = new Schema<TAcademicSemester>(
   {

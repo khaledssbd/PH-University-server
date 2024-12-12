@@ -1,4 +1,3 @@
-import { RequestHandler } from 'express';
 // import zodStudentValidationSchema from '../student/student.validation';
 import { UserServices } from './user.service';
 import sendResponse from '../../utils/sendResponse';

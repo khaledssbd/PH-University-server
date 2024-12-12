@@ -1,8 +1,7 @@
 import { ErrorRequestHandler } from 'express';
 import httpStatus from 'http-status';
-import mongoose from 'mongoose';
-import { ZodError, ZodIssue } from 'zod';
-import { TErrorSources, TGenericErrorResponse } from '../interface/error';
+import { ZodError } from 'zod';
+import { TErrorSources } from '../interface/error';
 import config from '../config';
 import handleZodError from '../errors/handleZodError';
 import handleValidationError from '../errors/handleValidationError';
