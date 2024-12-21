@@ -3,7 +3,7 @@ import validator from 'validator';
 import {
   TGuardian,
   TStudent,
-  // StudentMethods,
+  // TStudentMethods,
   TStudentModel,
   TUserName,
   TLocalGuardian,
@@ -191,6 +191,10 @@ const studentSchema = new Schema<TStudent, TStudentModel>(
       type: Schema.Types.ObjectId,
       ref: 'AcademicSemester', // model name
     },
+    academicDepartment: {
+      type: Schema.Types.ObjectId,
+      ref: 'AcademicDepartment', // model name
+    },
     isDeleted: {
       type: Boolean,
       default: false,
@@ -349,7 +353,7 @@ studentSchema.virtual('fullName').get(function () {
 studentSchema.pre('find', function (next) {
   // console.log(this, 'pre hook: we will save data');
   // while we are getting all data by using find method we want to exclude the data that has isDeleted: true
-  this.find({ isDeleted: { $ne: true } });
+  this.find({ isDeleted: { $ne: true } }); // this.find({ isDeleted: false }); this.find({ isDeleted: { $eq: false } });
   next();
 });
 
@@ -357,19 +361,19 @@ studentSchema.pre('find', function (next) {
 studentSchema.pre('findOne', function (next) {
   // console.log(this, 'pre hook: we will save data');
   // while we are getting single data by using findOne method we want to exclude the data that has isDeleted: true
-  this.find({ isDeleted: { $ne: true } });
+  this.find({ isDeleted: { $ne: true } }); // this.find({ isDeleted: false }); this.find({ isDeleted: { $eq: false } });
   next();
 });
 
 studentSchema.pre('aggregate', function (next) {
   // console.log(this, 'pre hook: we will save data');
   // while we are getting all data by using aggregate(find) method we want to exclude the data that has isDeleted: true
-  this.pipeline().unshift({ $match: { isDeleted: { $ne: true } } });
+  this.pipeline().unshift({ $match: { isDeleted: { $ne: true } } }); // this.find({ isDeleted: false }); this.find({ isDeleted: { $eq: false } });
   next();
 });
 
 // creating a custom static method
-studentSchema.statics.isUserExists = async function (id: string) {
+studentSchema.statics.isStudentExists = async function (id: string) {
   const existingUser = await Student.findOne({ id });
   return existingUser;
 };

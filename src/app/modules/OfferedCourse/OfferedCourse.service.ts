@@ -6,9 +6,9 @@ import { Faculty } from '../Faculty/faculty.model';
 import { AcademicDepartment } from '../academicDepartment/academicDepartment.model';
 import { AcademicFaculty } from '../academicFaculty/academicFaculty.model';
 import { SemesterRegistration } from '../semesterRegistration/semesterRegistration.model';
-import { TOfferedCourse } from './OfferedCourse.interface';
-import { OfferedCourse } from './OfferedCourse.model';
-import { hasTimeConflict } from './OfferedCourse.utils';
+import { TOfferedCourse } from './offeredCourse.interface';
+import { OfferedCourse } from './offeredCourse.model';
+import { hasTimeConflict } from './offeredCourse.utils';
 
 const createOfferedCourseIntoDB = async (payload: TOfferedCourse) => {
   const {
@@ -37,8 +37,7 @@ const createOfferedCourseIntoDB = async (payload: TOfferedCourse) => {
    */
 
   //check if the semester registration id is exists!
-  const isSemesterRegistrationExits =
-    await SemesterRegistration.findById(semesterRegistration);
+  const isSemesterRegistrationExits = await SemesterRegistration.findById(semesterRegistration);
 
   if (!isSemesterRegistrationExits) {
     throw new AppError(
@@ -145,7 +144,7 @@ const getSingleOfferedCourseFromDB = async (id: string) => {
   const offeredCourse = await OfferedCourse.findById(id);
 
   if (!offeredCourse) {
-    throw new AppError(404, 'Offered Course not found');
+    throw new AppError(httpStatus.NOT_FOUND, 'Offered Course not found');
   }
 
   return offeredCourse;

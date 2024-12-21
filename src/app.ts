@@ -38,7 +38,7 @@ app.use('/api/v1', router);
 
 // app.get('/', test);
 
-// global error handling middleware (four parameters error handler) (must be in botom)
+// global error handling middleware (four parameters error handler) (must be in botom) (next(err))
 app.use(globalErrorHandler);
 
 // Not Found page (Route is not found)  (must be in botom)

@@ -8,7 +8,7 @@ import { AdminRoutes } from '../modules/Admin/admin.route';
 import { AcademicDepartmentRoutes } from '../modules/academicDepartment/academicDepartment.route';
 import { CourseRoutes } from '../modules/Course/course.route';
 import { SemesterRegistrationRoutes } from '../modules/semesterRegistration/semesterRegistration.route';
-import { OfferedCourseRoutes } from '../modules/OfferedCourse/OfferedCourse.route';
+import { OfferedCourseRoutes } from '../modules/offeredCourse/offeredCourse.route';
 import { AuthRoutes } from '../modules/Auth/auth.route';
 
 const router = Router();

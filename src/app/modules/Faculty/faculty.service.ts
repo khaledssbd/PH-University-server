@@ -23,12 +23,23 @@ const getAllFacultiesFromDB = async (query: Record<string, unknown>) => {
 };
 
 const getSingleFacultyFromDB = async (id: string) => {
-  const result = await Faculty.findById(id).populate('academicDepartment');
+  // const isFacultyExists = await Faculty.findById(id);
+  const isFacultyExists = await Faculty.isFacultyExists(id);
+  if (!isFacultyExists) {
+    throw new AppError(httpStatus.NOT_FOUND, 'Faculty not found!');
+  }
 
+  const result = await Faculty.findById(id).populate('academicDepartment');
   return result;
 };
 
 const updateFacultyIntoDB = async (id: string, payload: Partial<TFaculty>) => {
+  // const isFacultyExists = await Faculty.findById(id);
+  const isFacultyExists = await Faculty.isFacultyExists(id);
+  if (!isFacultyExists) {
+    throw new AppError(httpStatus.NOT_FOUND, 'Faculty not found!');
+  }
+
   const { name, ...remainingFacultyData } = payload;
 
   // declared modifiedUpdatedData{} with all primitive fields as remainingFacultyData
@@ -50,8 +61,13 @@ const updateFacultyIntoDB = async (id: string, payload: Partial<TFaculty>) => {
 };
 
 const deleteFacultyFromDB = async (id: string) => {
-  const session = await mongoose.startSession();
+  // const isFacultyExists = await Faculty.findById(id);
+  const isFacultyExists = await Faculty.isFacultyExists(id);
+  if (!isFacultyExists) {
+    throw new AppError(httpStatus.NOT_FOUND, 'Faculty not found!');
+  }
 
+  const session = await mongoose.startSession();
   try {
     session.startTransaction();
 

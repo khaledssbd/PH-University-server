@@ -107,6 +107,12 @@ const getAllStudentsFromDB = async (query: Record<string, unknown>) => {
 
 const getSingleStudentFromDB = async (id: string) => {
   // const result = await Student.aggregate([{ $match: { _id: studentID } }]);
+  // const isStudentExists = await Student.findById(id);
+  const isStudentExists = await Student.isStudentExists(id);
+  if (!isStudentExists) {
+    throw new AppError(httpStatus.NOT_FOUND, 'Student does not exist!');
+  }
+
   const result = await Student.findById(id)
     .populate('admissionSemester')
     .populate({
@@ -117,6 +123,12 @@ const getSingleStudentFromDB = async (id: string) => {
 };
 
 const updateStudentIntoDB = async (id: string, payLoad: Partial<TStudent>) => {
+  // const isStudentExists = await Student.findById(id);
+  const isStudentExists = await Student.isStudentExists(id);
+  if (!isStudentExists) {
+    throw new AppError(httpStatus.NOT_FOUND, 'Student does not exist!');
+  }
+
   // destructuring preimitive(name, guardian, localGuardian) and non-primitive(...remainingStudentData) parameters
   const { name, guardian, localGuardian, ...remainingStudentData } = payLoad;
 
@@ -176,7 +188,10 @@ const deleteStudentFromDB = async (id: string) => {
 
   //  old (isUserExists)
   // for static method
-  const isUserExists = await Student.isUserExists(id);
+
+  
+  // const isStudentExists = await Student.findById(id);
+  const isUserExists = await Student.isStudentExists(id);
   if (!isUserExists) {
     throw new AppError(httpStatus.BAD_REQUEST, 'User not found!');
   }

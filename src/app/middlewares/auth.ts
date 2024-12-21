@@ -45,10 +45,10 @@ const auth = (...requiredRoles: TUserRole[]) => {
     // checking if the any hacker using a token even-after the user changed the password
     if (
       user.passwordChangedAt &&
-      User.isJWTIssuedBeforePasswordChanged(
+      (await User.isJWTIssuedBeforePasswordChanged(
         user.passwordChangedAt,
         iat as number,
-      )
+      ))
     ) {
       throw new AppError(httpStatus.UNAUTHORIZED, 'You are not authorized !');
     }

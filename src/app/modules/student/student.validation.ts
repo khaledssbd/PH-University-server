@@ -3,6 +3,8 @@ import { z } from 'zod';
 // schema validation using zod
 // in zod by default every field is required.. for optional must use .optional()
 
+// Create Student Schema
+
 // UserName Schema
 const createUserNameValidationSchema = z.object({
   firstName: z
@@ -71,8 +73,8 @@ const createLocalGuardianValidationSchema = z.object({
     .min(1, { message: 'Local Guardian Address is required' }),
 });
 
-// Student Schema
- const createStudentValidationSchema = z.object({
+// Main Create Student Schema
+const createStudentValidationSchema = z.object({
   body: z.object({
     password: z
       .string({
@@ -120,10 +122,16 @@ const createLocalGuardianValidationSchema = z.object({
         required_error: 'Semester is required',
         invalid_type_error: 'Semester must be a string',
       }),
+      academicDepartment: z.string({
+        required_error: 'Department is required',
+        invalid_type_error: 'Department must be a string',
+      }),
     }),
   }),
 });
 
+// Update Student Schema
+// UserName Schema
 const updateUserNameValidationSchema = z.object({
   firstName: z
     .string()
@@ -169,6 +177,7 @@ const updateLocalGuardianValidationSchema = z.object({
   address: z.string().trim().optional(),
 });
 
+// Main Update Student Schema
 const updateStudentValidationSchema = z.object({
   body: z.object({
     // password: z
@@ -211,6 +220,12 @@ const updateStudentValidationSchema = z.object({
         .string({
           required_error: 'Semester is required',
           invalid_type_error: 'Semester must be a string',
+        })
+        .optional(),
+      academicDepartment: z
+        .string({
+          required_error: 'Department is required',
+          invalid_type_error: 'Department must be a string',
         })
         .optional(),
     }),

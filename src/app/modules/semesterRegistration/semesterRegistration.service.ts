@@ -2,7 +2,7 @@ import httpStatus from 'http-status';
 import mongoose from 'mongoose';
 import QueryBuilder from '../../builder/QueryBuilder';
 import AppError from '../../errors/AppError';
-import { OfferedCourse } from '../OfferedCourse/OfferedCourse.model';
+import { OfferedCourse } from '../offeredCourse/offeredCourse.model';
 import { AcademicSemester } from '../academicSemester/academicSemester.model';
 import { RegistrationStatus } from './semesterRegistration.constant';
 import { TSemesterRegistration } from './semesterRegistration.interface';
@@ -115,7 +115,7 @@ const updateSemesterRegistrationIntoDB = async (
   if (currentSemesterStatus === RegistrationStatus.ENDED) {
     throw new AppError(
       httpStatus.BAD_REQUEST,
-      `This semester is already ${currentSemesterStatus}`,// already ENDED semester can't be updated
+      `This semester is already ${currentSemesterStatus}`, // already ENDED semester can't be updated
     );
   }
 

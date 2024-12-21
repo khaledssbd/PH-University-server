@@ -15,12 +15,7 @@ export const Months: TMonths[] = [
   'December',
 ];
 
-export const AcademicSemesterName: TAcademicSemesterName[] = [
-  'Autumn',
-  'Summar',
-  'Fall',
-];
-
+export const AcademicSemesterName: TAcademicSemesterName[] = ['Autumn', 'Summar', 'Fall'];
 export const AcademicSemesterCode: TAcademicSemesterCode[] = ['01', '02', '03'];
 
 

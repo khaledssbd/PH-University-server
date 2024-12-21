@@ -12,14 +12,14 @@ const router = express.Router();
 // middleware with controller function
 router.post(
   '/create-student',
-  auth(USER_ROLE.admin),
+  // auth(USER_ROLE.admin),
   validateRequest(Studentvalidations.createStudentValidationSchema), // middleware for validation
   UserControllers.createStudent, // controller function
 );
 
 router.post(
   '/create-faculty',
-  auth(USER_ROLE.admin),
+  // auth(USER_ROLE.admin),
   validateRequest(FacultyValidations.createFacultyValidationSchema),
   UserControllers.createFaculty,
 );

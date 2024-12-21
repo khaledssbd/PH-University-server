@@ -20,11 +20,22 @@ const getAllAdminsFromDB = async (query: Record<string, unknown>) => {
 };
 
 const getSingleAdminFromDB = async (id: string) => {
-  const result = await Admin.findById(id);
-  return result;
+  // const isAdminExists = await Admin.findById(id);
+  const isAdminExists = await Admin.isAdminExists(id);
+  if (!isAdminExists) {
+    throw new AppError(httpStatus.NOT_FOUND, `Admin with ID ${id} not found.`);
+  }
+
+  return isAdminExists;
 };
 
 const updateAdminIntoDB = async (id: string, payload: Partial<TAdmin>) => {
+  // const isAdminExists = await Admin.findById(id);
+  const isAdminExists = await Admin.isAdminExists(id);
+  if (!isAdminExists) {
+    throw new AppError(httpStatus.NOT_FOUND, `Admin with ID ${id} not found.`);
+  }
+
   const { name, ...remainingAdminData } = payload;
 
   const modifiedUpdatedData: Record<string, unknown> = {
@@ -45,8 +56,13 @@ const updateAdminIntoDB = async (id: string, payload: Partial<TAdmin>) => {
 };
 
 const deleteAdminFromDB = async (id: string) => {
-  const session = await mongoose.startSession();
+  // const isAdminExists = await Admin.findById(id);
+  const isAdminExists = await Admin.isAdminExists(id);
+  if (!isAdminExists) {
+    throw new AppError(httpStatus.NOT_FOUND, `Admin with ID ${id} not found.`);
+  }
 
+  const session = await mongoose.startSession();
   try {
     session.startTransaction();
 
@@ -57,7 +73,7 @@ const deleteAdminFromDB = async (id: string) => {
     );
 
     if (!deletedAdmin) {
-      throw new AppError(httpStatus.BAD_REQUEST, 'Failed to delete student!');
+      throw new AppError(httpStatus.BAD_REQUEST, 'Failed to delete admin!');
     }
 
     // get user _id from deletedAdmin

@@ -16,7 +16,7 @@ export interface TUser {
 
 export interface UserModel extends Model<TUser> {
   //instance methods for checking if the user exist
-  isUserExistsByCustomId(id: string): Promise<TUser>;
+  isUserExistsByCustomId(id: string): Promise<TUser | null>;
   //instance methods for checking if passwords are matched
   isPasswordMatched(
     plainTextPassword: string,
@@ -25,7 +25,7 @@ export interface UserModel extends Model<TUser> {
   isJWTIssuedBeforePasswordChanged(
     passwordChangedTimestamp: Date,
     jwtIssuedTimestamp: number,
-  ): boolean;
+  ): Promise<boolean>;
 }
 
-export type TUserRole = keyof typeof USER_ROLE;
+export type TUserRole = keyof typeof USER_ROLE; // 'student' | 'faculty' | 'admin'
