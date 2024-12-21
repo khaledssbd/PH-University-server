@@ -83,6 +83,7 @@ const adminSchema = new Schema<TAdmin, AdminModel>(
     },
   },
   {
+    versionKey: false,
     toJSON: {
       virtuals: true,
     },

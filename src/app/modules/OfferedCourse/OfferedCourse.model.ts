@@ -59,6 +59,7 @@ const offeredCourseSchema = new mongoose.Schema<TOfferedCourse>(
   },
   {
     timestamps: true,
+    versionKey: false,
   },
 );
 

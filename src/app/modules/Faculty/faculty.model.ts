@@ -88,6 +88,7 @@ const facultySchema = new Schema<TFaculty, FacultyModel>(
     },
   },
   {
+    versionKey: false,
     toJSON: {
       virtuals: true,
     },

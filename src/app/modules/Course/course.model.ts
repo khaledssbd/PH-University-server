@@ -70,6 +70,9 @@ const courseFacultySchema = new Schema<TCoursefaculty>({
       ref: 'Faculty',
     },
   ],
+},
+{
+  versionKey: false,
 });
 
 export const CourseFaculty = model<TCoursefaculty>(

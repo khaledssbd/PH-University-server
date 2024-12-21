@@ -34,6 +34,7 @@ const semesterRegistrationSchema = new mongoose.Schema<TSemesterRegistration>(
   },
   {
     timestamps: true,
+    versionKey: false,
   },
 );
 
