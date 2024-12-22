@@ -1,6 +1,9 @@
 import { Model } from 'mongoose';
 import { USER_ROLE } from './user.constant';
 
+
+export type TBloodGroup = 'A+' | 'A-' | 'B+' | 'B-' | 'AB+' | 'AB-' | 'O+' | 'O-';
+
 export interface TUser {
   id: string;
   // email: string;

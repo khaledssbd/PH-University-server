@@ -1,6 +1,7 @@
 import { Schema, model } from 'mongoose';
-import { BloodGroup, Gender } from './admin.constant';
+import { Gender } from './admin.constant';
 import { AdminModel, TAdmin, TUserName } from './admin.interface';
+import { BloodGroup } from '../user/user.constant';
 
 const userNameSchema = new Schema<TUserName>({
   firstName: {
@@ -61,7 +62,7 @@ const adminSchema = new Schema<TAdmin, AdminModel>(
       type: String,
       required: [true, 'Emergency contact number is required'],
     },
-    bloogGroup: {
+    bloodGroup: {
       type: String,
       enum: {
         values: BloodGroup,
@@ -94,9 +95,9 @@ const adminSchema = new Schema<TAdmin, AdminModel>(
 adminSchema.virtual('fullName').get(function () {
   return (
     this?.name?.firstName +
-    '' +
+    ' ' +
     this?.name?.middleName +
-    '' +
+    ' ' +
     this?.name?.lastName
   );
 });

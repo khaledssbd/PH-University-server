@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { BloodGroup } from '../user/user.constant';
 
 // schema validation using zod
 // in zod by default every field is required.. for optional must use .optional()
@@ -101,9 +102,7 @@ const createStudentValidationSchema = z.object({
         .string()
         .trim()
         .min(1, { message: 'Emergency Contact Number is required' }),
-      bloodGroup: z
-        .enum(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'])
-        .optional(),
+      bloodGroup: z.enum([...BloodGroup] as [string, ...string[]]).optional(),
       presentAddress: z
         .string()
         .trim()

@@ -1,5 +1,6 @@
 import { z } from 'zod';
-import { BloodGroup, Gender } from './faculty.constant';
+import { Gender } from './faculty.constant';
+import { BloodGroup } from '../user/user.constant';
 
 
 // create Schema
@@ -29,18 +30,39 @@ const createFacultyValidationSchema = z.object({
       .max(20, { message: "Password can't be more then 20 characters" })
       .optional(),
     faculty: z.object({
-      designation: z.string(),
+      designation: z.string({
+        required_error: 'Designation is required',
+        invalid_type_error: 'Designation must be a string',
+      }),
       name: createUserNameValidationSchema,
       gender: z.enum([...Gender] as [string, ...string[]]),
       dateOfBirth: z.string().optional(),
-      email: z.string().email(),
-      contactNo: z.string(),
-      emergencyContactNo: z.string(),
-      bloogGroup: z.enum([...BloodGroup] as [string, ...string[]]),
-      presentAddress: z.string(),
-      permanentAddress: z.string(),
-      academicDepartment: z.string(),
-      profileImg: z.string(),
+      email: z.string().trim().email({ message: 'Invalid email address' }),
+      contactNo: z
+        .string()
+        .trim()
+        .min(1, { message: 'Contact Number is required' }),
+      emergencyContactNo: z
+        .string()
+        .trim()
+        .min(1, { message: 'Emergency Contact Number is required' }),
+      bloodGroup: z.enum([...BloodGroup] as [string, ...string[]]).optional(),
+      presentAddress: z
+        .string()
+        .trim()
+        .min(1, { message: 'Present Address is required' }),
+      permanentAddress: z
+        .string()
+        .trim()
+        .min(1, { message: 'Permanent Address is required' }),
+      academicDepartment: z.string({
+        required_error: 'Department is required',
+        invalid_type_error: 'Department must be a string',
+      }),
+      profileImg: z
+        .string()
+        .url({ message: 'Profile Image must be a valid URL' })
+        .optional(),
     }),
   }),
 });

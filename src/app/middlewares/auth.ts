@@ -7,7 +7,7 @@ import { TUserRole } from '../modules/user/user.interface';
 import { User } from '../modules/user/user.model';
 import catchAsync from '../utils/catchAsync';
 
-const auth = (...requiredRoles: TUserRole[]) => {
+const auth = (...requiredRoles: TUserRole[]) => { // rest operator makes an Array
   return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const token = req.headers.authorization;
 

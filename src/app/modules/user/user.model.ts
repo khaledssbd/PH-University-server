@@ -77,7 +77,7 @@ userSchema.post('save', function (doc, next) {
 // export const User = model<TUser>('User', userSchema);
 
 userSchema.statics.isUserExistsByCustomId = async function (id: string) {
-  return await User.findOne({ id }).select('+password');
+  return await User.findOne({ id }).select('+password'); // will show the password
 };
 
 userSchema.statics.isPasswordMatched = async function (

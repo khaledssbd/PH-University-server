@@ -23,3 +23,27 @@ npm i -D --exact prettier
 npx prettier --write src/index.ts
 
 npm install --save-dev eslint-config-prettier
+
+
+
+1. academicFaculty ----> academicDepartment(academicFaculty) ----> XXXXStudent(user, admissionSemester, academicDepartment)XXXX
+
+2. user ---> Admin(user)/Faculty(user, academicDepartment)
+
+3. course ---> courseFaculty(course, faculty)
+
+4. academicSemester ----> semesterRegistration(academicSemester) ----> offeredCourse(course, faculty, academicFaculty, academicDepartment, academicSemester, semesterRegistration)
+
+5. user ---> Student(user, admissionSemester, academicDepartment)
+
+6. XXXacademicSemesterXXX ----> XXXStudent(admissionSemester, user, academicDepartment)XXX
+
+7. XXXacademicSemesterXXX ----> XXXofferedCourse(course, faculty, academicFaculty, academicDepartment, academicSemester, semesterRegistration)XXX
+
+8. XXXacademicFacultyXXX ----> XXXacademicDepartment(academicFaculty)XXX ----> XXXFaculty(user, academicDepartment)XXX
+
+9. XXXacademicFacultyXXX ----> XXXacademicDepartment(academicFaculty)XXX ----> XXXofferedCourse(course, faculty, academicFaculty, academicDepartment, academicSemester, semesterRegistration)XXX
+
+10. XXXacademicFaculty ----> offeredCourse(course, faculty, academicFaculty, academicDepartment, academicSemester, semesterRegistration)XXX
+
+11. XXXcourseXXX ---> XXXofferedCourse(course, faculty, academicFaculty, academicDepartment, academicSemester, semesterRegistration)XXX

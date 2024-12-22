@@ -8,6 +8,7 @@ import {
   TUserName,
   TLocalGuardian,
 } from './student.interface';
+import { BloodGroup } from '../user/user.constant';
 
 // creating All Schema
 const userNameSchema = new Schema<TUserName>({
@@ -159,9 +160,9 @@ const studentSchema = new Schema<TStudent, TStudentModel>(
     bloodGroup: {
       type: String,
       enum: {
-        values: ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'],
+        values: BloodGroup,
         message:
-          "Blood group must be of one of the followings: 'A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'.",
+         `Blood group must be of one of the followings: ${BloodGroup}`,
         // message: '{VALUE} is not valid Blood group',
       },
       trim: true,
