@@ -24,7 +24,8 @@ npx prettier --write src/index.ts
 
 npm install --save-dev eslint-config-prettier
 
-
+npm install nodemailer
+npm i --save-dev @types/nodemailer
 
 1. academicFaculty ----> academicDepartment(academicFaculty) ----> XXXXStudent(user, admissionSemester, academicDepartment)XXXX
 

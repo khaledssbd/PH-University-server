@@ -2,6 +2,8 @@ import { model, Schema } from 'mongoose';
 import { TUser, UserModel } from './user.interface';
 import bcrypt from 'bcrypt';
 import config from '../../config';
+import validator from 'validator';
+import { UserStatus } from './user.constant';
 
 const userSchema = new Schema<TUser, UserModel>(
   {
@@ -10,16 +12,16 @@ const userSchema = new Schema<TUser, UserModel>(
       required: true,
       unique: true,
     },
-    // email: {
-    //   type: String,
-    //   required: [true, 'Student Email is required'],
-    //   unique: true,
-    //   trim: true,
-    //   validate: {
-    //     validator: (value: string) => validator.isEmail(value),
-    //     message: '{VALUE} is not a valid email',
-    //   },
-    // },
+    email: {
+      type: String,
+      required: [true, 'Student Email is required'],
+      unique: true,
+      trim: true,
+      validate: {
+        validator: (value: string) => validator.isEmail(value),
+        message: '{VALUE} is not a valid email',
+      },
+    },
     password: {
       type: String,
       required: true,
@@ -42,7 +44,7 @@ const userSchema = new Schema<TUser, UserModel>(
     status: {
       type: String,
       enum: {
-        values: ['in-progress', 'blocked'],
+        values: UserStatus,
         message: '{VALUE} is not a valid status',
       },
       default: 'in-progress', // default

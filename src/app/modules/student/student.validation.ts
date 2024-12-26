@@ -113,10 +113,10 @@ const createStudentValidationSchema = z.object({
         .min(1, { message: 'Permanent Address is required' }),
       guardian: createGuardianValidationSchema,
       localGuardian: createLocalGuardianValidationSchema,
-      profileImg: z
-        .string()
-        .url({ message: 'Profile Image must be a valid URL' })
-        .optional(),
+      // profileImg: z
+      //   .string()
+      //   .url({ message: 'Profile Image must be a valid URL' })
+      //   .optional(),
       admissionSemester: z.string({
         required_error: 'Semester is required',
         invalid_type_error: 'Semester must be a string',
@@ -211,10 +211,10 @@ const updateStudentValidationSchema = z.object({
       permanentAddress: z.string().trim().optional(),
       guardian: updateGuardianValidationSchema.optional(),
       localGuardian: updateLocalGuardianValidationSchema.optional(),
-      profileImg: z
-        .string()
-        .url({ message: 'Profile Image must be a valid URL' })
-        .optional(),
+      // profileImg: z
+      //   .string()
+      //   .url({ message: 'Profile Image must be a valid URL' })
+      //   .optional(),
       admissionSemester: z
         .string({
           required_error: 'Semester is required',

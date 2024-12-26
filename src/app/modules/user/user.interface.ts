@@ -6,7 +6,7 @@ export type TBloodGroup = 'A+' | 'A-' | 'B+' | 'B-' | 'AB+' | 'AB-' | 'O+' | 'O-
 
 export interface TUser {
   id: string;
-  // email: string;
+  email: string;
   password: string;
   needsPasswordChange: boolean; // default: true
   passwordChangedAt?: Date;

@@ -10,7 +10,14 @@ const createUserNameValidationSchema = z.object({
 
  const createAdminValidationSchema = z.object({
    body: z.object({
-     password: z.string().max(20),
+     password: z
+       .string({
+         // required_error: 'Password is required',
+         invalid_type_error: 'Password must be a string',
+       })
+       .min(8, { message: "Password can't be less then 8 characters" })
+       .max(20, { message: "Password can't be more then 20 characters" })
+       .optional(),
      admin: z.object({
        designation: z.string({
          required_error: 'Designation is required',
@@ -37,10 +44,10 @@ const createUserNameValidationSchema = z.object({
          .string()
          .trim()
          .min(1, { message: 'Permanent Address is required' }),
-       profileImg: z
-         .string()
-         .url({ message: 'Profile Image must be a valid URL' })
-         .optional(),
+      //  profileImg: z
+      //    .string()
+      //    .url({ message: 'Profile Image must be a valid URL' })
+      //    .optional(),
      }),
    }),
  });
@@ -64,7 +71,7 @@ const updateUserNameValidationSchema = z.object({
       bloogGroup: z.enum([...BloodGroup] as [string, ...string[]]).optional(),
       presentAddress: z.string().optional(),
       permanentAddress: z.string().optional(),
-      profileImg: z.string().optional(),
+      // profileImg: z.string().optional(),
     }),
   }),
 });

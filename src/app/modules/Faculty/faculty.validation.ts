@@ -59,10 +59,10 @@ const createFacultyValidationSchema = z.object({
         required_error: 'Department is required',
         invalid_type_error: 'Department must be a string',
       }),
-      profileImg: z
-        .string()
-        .url({ message: 'Profile Image must be a valid URL' })
-        .optional(),
+      // profileImg: z
+      //   .string()
+      //   .url({ message: 'Profile Image must be a valid URL' })
+      //   .optional(),
     }),
   }),
 });
@@ -91,7 +91,7 @@ const updateFacultyValidationSchema = z.object({
       bloogGroup: z.enum([...BloodGroup] as [string, ...string[]]).optional(),
       presentAddress: z.string().optional(),
       permanentAddress: z.string().optional(),
-      profileImg: z.string().optional(),
+      // profileImg: z.string().optional(),
       academicDepartment: z.string().optional(),
     }),
   }),

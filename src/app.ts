@@ -26,6 +26,9 @@ app.use(cookieParser());
 // app.use(cors
 app.use(cors(corsConfig));
 
+app.get('/', (req: Request, res: Response) => {
+  res.send('Hello World From Khaled! ✨');
+});
 
 // api/v1/students/create-student
 app.use('/api/v1', router);
@@ -44,8 +47,6 @@ app.use(globalErrorHandler);
 // Not Found page (Route is not found)  (must be in botom)
 app.use(notFound);
 
-app.get('/', (req: Request, res: Response) => {
-  res.send('Hello World From Khaled! ✨');
-});
+
 
 export default app;
