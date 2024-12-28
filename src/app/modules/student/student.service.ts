@@ -101,8 +101,13 @@ const getAllStudentsFromDB = async (query: Record<string, unknown>) => {
     .paginate()
     .fields();
 
-  const result = await studentQuery.modelQuery;
-  return result;
+    const meta = await studentQuery.countTotal();
+    const result = await studentQuery.modelQuery;
+
+  return {
+    meta,
+    result,
+  };
 };
 
 const getSingleStudentFromDB = async (id: string) => {
@@ -189,7 +194,6 @@ const deleteStudentFromDB = async (id: string) => {
   //  old (isUserExists)
   // for static method
 
-  
   // const isStudentExists = await Student.findById(id);
   const isUserExists = await Student.isStudentExists(id);
   if (!isUserExists) {
