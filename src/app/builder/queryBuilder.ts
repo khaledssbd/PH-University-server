@@ -19,10 +19,11 @@ class QueryBuilder<T> {
             ({
               [field]: { $regex: searchTerm, $options: 'i' },
               //  }) ,
-            }) as FilterQuery<T>,
+            }) as FilterQuery<T>, // uporerta dileo hoy
         ),
       });
     }
+
     return this;
   }
 
@@ -33,15 +34,18 @@ class QueryBuilder<T> {
     const excludeFields = ['searchTerm', 'sort', 'page', 'limit', 'fields'];
     excludeFields.forEach((field) => delete queryObj[field]);
 
-    //    this.modelQuery = this.modelQuery.find(queryObj);
-    this.modelQuery = this.modelQuery.find(queryObj as FilterQuery<T>);
+    // this.modelQuery = this.modelQuery.find(queryObj);
+    this.modelQuery = this.modelQuery.find(queryObj as FilterQuery<T>); // uporerta dileo hoy
+
     return this;
   }
 
   sort() {
     const sort =
       (this?.query?.sort as string)?.split(',')?.join(' ') || '-createdAt';
+    
     this.modelQuery = this.modelQuery.sort(sort as string);
+
     return this;
   }
 
@@ -49,14 +53,18 @@ class QueryBuilder<T> {
     const page = Number(this?.query?.page) || 1;
     const limit = Number(this?.query?.limit) || 10;
     const skip = (page - 1) * limit;
+
     this.modelQuery = this.modelQuery.skip(skip).limit(limit);
+
     return this;
   }
 
   fields() {
     const fields =
       (this?.query?.fields as string)?.split(',')?.join(' ') || '-__V';
+    
     this.modelQuery = this.modelQuery.select(fields);
+
     return this;
   }
 

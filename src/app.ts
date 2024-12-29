@@ -17,7 +17,7 @@ const corsConfig = {
     // 'https://urbanutopia-by-khaled.surge.sh',
     // 'https://urbanutopia-by-khaled.netlify.app',
   ],
-  // credentials: true,
+  credentials: true,
 };
 
 // parsers

@@ -89,10 +89,12 @@ const getAllStudentsFromDB = async (query: Record<string, unknown>) => {
     Student.find()
       .populate('user')
       .populate('admissionSemester')
-      .populate({
-        path: 'academicDepartment',
-        populate: { path: 'academicFaculty' },
-      }),
+      .populate('academicDepartment academicFaculty'),
+    // .populate({
+    //   path: 'academicDepartment',
+    //   populate: { path: 'academicFaculty' },
+    // }),
+
     query,
   )
     .search(studentSearchableFields)
@@ -101,8 +103,8 @@ const getAllStudentsFromDB = async (query: Record<string, unknown>) => {
     .paginate()
     .fields();
 
-    const meta = await studentQuery.countTotal();
-    const result = await studentQuery.modelQuery;
+  const meta = await studentQuery.countTotal();
+  const result = await studentQuery.modelQuery;
 
   return {
     meta,
@@ -119,11 +121,13 @@ const getSingleStudentFromDB = async (id: string) => {
   }
 
   const result = await Student.findById(id)
+    .populate('user')
     .populate('admissionSemester')
-    .populate({
-      path: 'academicDepartment',
-      populate: { path: 'academicFaculty' },
-    }); // must use ref in schema .... admissionSemester, academicDepartment and academicFaculty are property in schema to get the data inside the field;;
+    .populate('academicDepartment academicFaculty');
+  // .populate({
+  //   path: 'academicDepartment',
+  //   populate: { path: 'academicFaculty' },
+  // }); // must use ref in schema .... admissionSemester, academicDepartment and academicFaculty are property in schema to get the data inside the field
   return result;
 };
 

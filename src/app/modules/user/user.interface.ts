@@ -1,7 +1,6 @@
 import { Model } from 'mongoose';
 import { USER_ROLE } from './user.constant';
 
-
 export type TBloodGroup = 'A+' | 'A-' | 'B+' | 'B-' | 'AB+' | 'AB-' | 'O+' | 'O-';
 
 export interface TUser {
@@ -10,7 +9,7 @@ export interface TUser {
   password: string;
   needsPasswordChange: boolean; // default: true
   passwordChangedAt?: Date;
-  role: 'student' | 'faculty' | 'admin';
+  role: 'student' | 'faculty' | 'admin' | 'superAdmin';
   status: 'in-progress' | 'blocked'; // default 'in-progress'
   isDeleted: boolean; // default: false
   // createdAt: Date;

@@ -1,14 +1,36 @@
+import QueryBuilder from '../../builder/QueryBuilder';
 import { TAcademicDepartment } from './academicDepartment.interface';
 import { AcademicDepartment } from './academicDepartment.model';
+import { AcademicDepartmentSearchableFields } from './academicDepartmets.constant';
 
 const createAcademicDepartmentIntoDB = async (payload: TAcademicDepartment) => {
   const result = await AcademicDepartment.create(payload);
   return result;
 };
 
-const getAllAcademicDepartmentsFromDB = async () => {
-  const result = await AcademicDepartment.find().populate('academicFaculty'); // must use ref in schema .... academicFaculty is a property in schema to get the data inside the field
-  return result;
+const getAllAcademicDepartmentsFromDB = async (
+  query: Record<string, unknown>,
+) => {
+  // const result = await AcademicDepartment.find().populate('academicFaculty'); // must use ref in schema .... academicFaculty is a property in schema to get the data inside the field
+  // return result;
+
+  const academicDepartmentQuery = new QueryBuilder(
+    AcademicDepartment.find().populate('academicFaculty'),
+    query,
+  )
+    .search(AcademicDepartmentSearchableFields)
+    .filter()
+    .sort()
+    .paginate()
+    .fields();
+
+  const result = await academicDepartmentQuery.modelQuery;
+  const meta = await academicDepartmentQuery.countTotal();
+
+  return {
+    meta,
+    result,
+  };
 };
 
 const getSingleAcademicDepartmentFromDB = async (id: string) => {

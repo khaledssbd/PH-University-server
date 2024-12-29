@@ -65,7 +65,7 @@ const updateCourseIntoDB = async (id: string, payload: Partial<TCourse>) => {
       // filter out the deleted fields
       const deletedPreRequisites = preRequisiteCourses
         .filter((el) => el.course && el.isDeleted)
-      .map((el) => el.course);
+        .map((el) => el.course);
 
       const deletedPreRequisiteCourses = await Course.findByIdAndUpdate(
         id,
@@ -150,6 +150,18 @@ const assignFacultiesWithCourseIntoDB = async (
   return result;
 };
 
+const getFacultiesWithCourseFromDB = async (courseId: string) => {
+  const result = await CourseFaculty.findOne({ course: courseId }).populate(
+    'faculties',
+  );
+
+  if (!result) {
+    throw new AppError(httpStatus.NOT_FOUND, 'Not Found!');
+  }
+  
+  return result;
+};
+
 const removeFacultiesFromCourseFromDB = async (
   id: string,
   payload: Partial<TCoursefaculty>,
@@ -173,5 +185,6 @@ export const CourseServices = {
   updateCourseIntoDB,
   deleteCourseFromDB,
   assignFacultiesWithCourseIntoDB,
+  getFacultiesWithCourseFromDB,
   removeFacultiesFromCourseFromDB,
 };

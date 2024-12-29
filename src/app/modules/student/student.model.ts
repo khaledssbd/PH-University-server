@@ -161,8 +161,7 @@ const studentSchema = new Schema<TStudent, TStudentModel>(
       type: String,
       enum: {
         values: BloodGroup,
-        message:
-         `Blood group must be of one of the followings: ${BloodGroup}`,
+        message: `Blood group must be of one of the followings: ${BloodGroup}`,
         // message: '{VALUE} is not valid Blood group',
       },
       trim: true,
@@ -187,6 +186,7 @@ const studentSchema = new Schema<TStudent, TStudentModel>(
     },
     profileImg: {
       type: String,
+      default: '',
     },
     admissionSemester: {
       type: Schema.Types.ObjectId,
@@ -195,6 +195,10 @@ const studentSchema = new Schema<TStudent, TStudentModel>(
     academicDepartment: {
       type: Schema.Types.ObjectId,
       ref: 'AcademicDepartment', // model name
+    },
+    academicFaculty: {
+      type: Schema.Types.ObjectId,
+      ref: 'AcademicFaculty', // model name
     },
     isDeleted: {
       type: Boolean,
@@ -298,7 +302,9 @@ const studentSchema = new Schema<TStudent, TStudentModel>(
 //     type: LocalGuardianSchema,
 //     required: [true, 'Student Local Guardian is required'],
 //   },
-//   profileImg: { type: String },
+//   profileImg: {
+//   type: String, default: ''
+//   },
 //   isActive: { type: String, enum: ['active', 'blocked'], default: 'active' },
 //   isDeleted: { type: Boolean, default: false },
 //   }, {
@@ -375,7 +381,7 @@ studentSchema.pre('aggregate', function (next) {
 
 // creating a custom static method
 studentSchema.statics.isStudentExists = async function (id: string) {
-  const existingUser = await Student.findOne({ id });
+  const existingUser = await Student.findById(id);
   return existingUser;
 };
 // studentSchema.statics.isUserExists = async (id: string) => await Student.findOne({ id })

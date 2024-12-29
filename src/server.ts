@@ -3,17 +3,19 @@ import mongoose from 'mongoose';
 import config from './app/config';
 import app from './app';
 import { Server } from 'http';
+import seedSuperAdmin from './app/DB/intex';
 
 let server: Server;
 async function main() {
   try {
     await mongoose.connect(config.database_url as string);
 
+    // run seeding script to create super admin user
+    seedSuperAdmin();
+
     // all app listening will be here
     server = app.listen(config.port, () => {
-      console.log(
-        `The app is running on port ${config.port} ✨`,
-      );
+      console.log(`The app is running on port ${config.port} ✨`);
     });
   } catch (err) {
     console.log(err);
