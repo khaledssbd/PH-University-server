@@ -27,7 +27,7 @@ const getSingleAdminFromDB = async (id: string) => {
   // const isAdminExists = await Admin.findById(id);
   const isAdminExists = await Admin.isAdminExists(id);
   if (!isAdminExists) {
-    throw new AppError(httpStatus.NOT_FOUND, `Admin with ID ${id} not found.`);
+    throw new AppError(httpStatus.NOT_FOUND, `Admin with ID ${id} not found!`);
   }
 
   return isAdminExists;
@@ -37,7 +37,7 @@ const updateAdminIntoDB = async (id: string, payload: Partial<TAdmin>) => {
   // const isAdminExists = await Admin.findById(id);
   const isAdminExists = await Admin.isAdminExists(id);
   if (!isAdminExists) {
-    throw new AppError(httpStatus.NOT_FOUND, `Admin with ID ${id} not found.`);
+    throw new AppError(httpStatus.NOT_FOUND, `Admin with ID ${id} not found!`);
   }
 
   const { name, ...remainingAdminData } = payload;
@@ -63,7 +63,7 @@ const deleteAdminFromDB = async (id: string) => {
   // const isAdminExists = await Admin.findById(id);
   const isAdminExists = await Admin.isAdminExists(id);
   if (!isAdminExists) {
-    throw new AppError(httpStatus.NOT_FOUND, `Admin with ID ${id} not found.`);
+    throw new AppError(httpStatus.NOT_FOUND, `Admin with ID ${id} not found!`);
   }
 
   const session = await mongoose.startSession();
@@ -97,10 +97,11 @@ const deleteAdminFromDB = async (id: string) => {
     await session.endSession();
 
     return deletedAdmin;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
     await session.abortTransaction();
     await session.endSession();
-    throw new Error(err);
+    throw new AppError(httpStatus.BAD_REQUEST, err);
   }
 };
 

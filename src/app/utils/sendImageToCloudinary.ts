@@ -27,8 +27,10 @@ export const sendImageToCloudinary = (
         // delete a file asynchronously
         fs.unlink(path, (err) => {
           if (err) {
+            // eslint-disable-next-line no-console
             console.log(err);
           } else {
+            // eslint-disable-next-line no-console
             console.log('File is uploaded and deleted the temp file!');
           }
         });

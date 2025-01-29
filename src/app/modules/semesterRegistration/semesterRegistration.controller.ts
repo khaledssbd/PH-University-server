@@ -30,7 +30,7 @@ const getAllSemesterRegistrations = catchAsync(
     sendResponse(res, {
       statusCode: httpStatus.OK,
       success: true,
-      message: 'Semester Registration is retrieved successfully !',
+      message: 'Semester Registration is retrieved successfully!',
       meta: result.meta,
       data: result.result,
     });
@@ -49,7 +49,7 @@ const getSingleSemesterRegistration = catchAsync(
     sendResponse(res, {
       statusCode: httpStatus.OK,
       success: true,
-      message: 'Semester Registration is retrieved successfully',
+      message: 'Semester Registration is retrieved successfully!',
       data: result,
     });
   },
@@ -67,7 +67,7 @@ const updateSemesterRegistration = catchAsync(
     sendResponse(res, {
       statusCode: httpStatus.OK,
       success: true,
-      message: 'Semester Registration is updated successfully',
+      message: 'Semester Registration is updated successfully!',
       data: result,
     });
   },
@@ -82,7 +82,7 @@ const deleteSemesterRegistration = catchAsync(
     sendResponse(res, {
       statusCode: httpStatus.OK,
       success: true,
-      message: 'Semester Registration is updated successfully',
+      message: 'Semester Registration is updated successfully!',
       data: result,
     });
   },

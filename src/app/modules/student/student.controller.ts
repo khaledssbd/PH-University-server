@@ -12,6 +12,7 @@ const getAllStudents = catchAsync(async (req, res) => {
   //   data: result,
   // });
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   sendResponse<any>(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -27,14 +28,15 @@ const getStudentById = catchAsync(async (req, res) => {
 
   // res.status(200).json({
   //   success: true,
-  //   message: 'Student retrieved successfully',
+  //   message: 'Student retrieved successfully!',
   //   data: result,
   // });
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   sendResponse<any>(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Student retrieved successfully',
+    message: 'Student retrieved successfully!',
     data: result,
   });
 });
@@ -46,14 +48,15 @@ const updateStudentById = catchAsync(async (req, res) => {
 
   // res.status(200).json({
   //   success: true,
-  //   message: 'Student retrieved successfully',
+  //   message: 'Student retrieved successfully!',
   //   data: result,
   // });
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   sendResponse<any>(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Student retrieved successfully',
+    message: 'Student retrieved successfully!',
     data: result,
   });
 });
@@ -68,6 +71,7 @@ const deleteStudentById = catchAsync(async (req, res) => {
   //   data: result,
   // });
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   sendResponse<any>(res, {
     statusCode: httpStatus.OK,
     success: true,

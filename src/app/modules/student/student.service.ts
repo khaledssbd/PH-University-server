@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import mongoose from 'mongoose';
 import { Student } from './student.model';
 import AppError from '../../errors/AppError';
@@ -191,7 +192,7 @@ const deleteStudentFromDB = async (id: string) => {
   // const student = new Student(studentData); // create an instance
   // // validate the Student model before saving
   // if (await student.isUserExists(id)) {
-  //   throw new Error('User already exists');
+  //   throw new AppError(httpStatus.CONFLICT, 'User already exists!');
   // }
   // const result = await student.save(); // built-in interface method
 
@@ -201,7 +202,7 @@ const deleteStudentFromDB = async (id: string) => {
   // const isStudentExists = await Student.findById(id);
   const isUserExists = await Student.isStudentExists(id);
   if (!isUserExists) {
-    throw new AppError(httpStatus.BAD_REQUEST, 'User not found!');
+    throw new AppError(httpStatus.NOT_FOUND, 'User not found!');
   }
 
   // start session

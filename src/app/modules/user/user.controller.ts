@@ -36,6 +36,7 @@ const createStudent = catchAsync(async (req, res) => {
   //   message: 'Student is created successfully',
   //   data: result,
   // });
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   sendResponse<any>(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -56,7 +57,7 @@ const createFaculty = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Faculty is created succesfully',
+    message: 'Faculty is created succesfully!',
     data: result,
   });
 });
@@ -73,7 +74,7 @@ const createAdmin = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Admin is created succesfully',
+    message: 'Admin is created succesfully!',
     data: result,
   });
 });
@@ -81,7 +82,7 @@ const createAdmin = catchAsync(async (req, res) => {
 const getMe = catchAsync(async (req, res) => {
   // const token = req.headers.authorization;
   // if (!token) {
-  //   throw new AppError(httpStatus.NOT_FOUND, 'Token not found !');
+  //   throw new AppError(httpStatus.NOT_FOUND, 'Token not found!');
   // }
 
   const { userId, role } = req.user;
@@ -91,7 +92,7 @@ const getMe = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'User is retrieved succesfully',
+    message: 'User is retrieved succesfully!',
     data: result,
   });
 });
@@ -104,7 +105,7 @@ const changeStatus = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Status is updated succesfully',
+    message: 'Status is updated succesfully!',
     data: result,
   });
 });

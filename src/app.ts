@@ -11,7 +11,7 @@ const app: Application = express();
 const corsConfig = {
   origin: [
     'http://localhost:5173',
-    // 'http://localhost:5174',
+    'http://localhost:5174',
     // 'https://urbanutopia-by-khaled.web.app',
     // 'https://urbanutopia-by-khaled.vercel.app',
     // 'https://urbanutopia-by-khaled.surge.sh',

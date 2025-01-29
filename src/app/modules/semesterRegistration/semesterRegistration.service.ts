@@ -32,7 +32,7 @@ const createSemesterRegistrationIntoDB = async (
   if (isThereAnyUpcomingOrOngoingSemester) {
     throw new AppError(
       httpStatus.BAD_REQUEST,
-      `There is already an ${isThereAnyUpcomingOrOngoingSemester.status} registered semester !`,
+      `There is already an ${isThereAnyUpcomingOrOngoingSemester.status} registered semester!`,
     );
   }
   // check if the semester is not exist
@@ -42,7 +42,7 @@ const createSemesterRegistrationIntoDB = async (
   if (!isAcademicSemesterExists) {
     throw new AppError(
       httpStatus.NOT_FOUND,
-      'This academic semester not found !',
+      'This academic semester not found!',
     );
   }
 
@@ -83,8 +83,7 @@ const getAllSemesterRegistrationsFromDB = async (
 };
 
 const getSingleSemesterRegistrationsFromDB = async (id: string) => {
-  const result =
-    await SemesterRegistration.findById(id).populate('academicSemester');;
+  const result = await SemesterRegistration.findById(id).populate('academicSemester');;
 
   return result;
 };
@@ -110,7 +109,7 @@ const updateSemesterRegistrationIntoDB = async (
   const isSemesterRegistrationExists = await SemesterRegistration.findById(id);
 
   if (!isSemesterRegistrationExists) {
-    throw new AppError(httpStatus.NOT_FOUND, 'This semester is not found !');
+    throw new AppError(httpStatus.NOT_FOUND, 'This semester is not found!');
   }
 
   //if the requested semester registration is ended , we will not update anything
@@ -120,7 +119,7 @@ const updateSemesterRegistrationIntoDB = async (
   if (currentSemesterStatus === RegistrationStatus.ENDED) {
     throw new AppError(
       httpStatus.BAD_REQUEST,
-      `This semester is already ${currentSemesterStatus}`, // already ENDED semester can't be updated
+      `This semester is already ${currentSemesterStatus}!`, // already ENDED semester can't be updated
     );
   }
 
@@ -131,7 +130,7 @@ const updateSemesterRegistrationIntoDB = async (
   ) {
     throw new AppError(
       httpStatus.BAD_REQUEST,
-      `You can not directly change status from ${currentSemesterStatus} to ${requestedStatus}`, // UPCOMING --> ONGOING is valid(UPCOMING X-->X ENDED)
+      `You can not directly change status from ${currentSemesterStatus} to ${requestedStatus}!`, // UPCOMING --> ONGOING is valid(UPCOMING X-->X ENDED)
     );
   }
 
@@ -141,7 +140,7 @@ const updateSemesterRegistrationIntoDB = async (
   ) {
     throw new AppError(
       httpStatus.BAD_REQUEST,
-      `You can not directly change status from ${currentSemesterStatus} to ${requestedStatus}`, // ONGOING --> ENDED is valid(ONGOING X-->X UPCOMING)
+      `You can not directly change status from ${currentSemesterStatus} to ${requestedStatus}!`, // ONGOING --> ENDED is valid(ONGOING X-->X UPCOMING)
     );
   }
 
@@ -166,7 +165,7 @@ const deleteSemesterRegistrationFromDB = async (id: string) => {
   if (!isSemesterRegistrationExists) {
     throw new AppError(
       httpStatus.NOT_FOUND,
-      'This registered semester is not found !',
+      'This registered semester is not found!',
     );
   }
 
@@ -176,7 +175,7 @@ const deleteSemesterRegistrationFromDB = async (id: string) => {
   if (semesterRegistrationStatus !== 'UPCOMING') {
     throw new AppError(
       httpStatus.BAD_REQUEST,
-      `You can not update as the registered semester is ${semesterRegistrationStatus}`,
+      `You can not update as the registered semester is ${semesterRegistrationStatus}!`,
     );
   }
 
@@ -199,7 +198,7 @@ const deleteSemesterRegistrationFromDB = async (id: string) => {
     if (!deletedOfferedCourse) {
       throw new AppError(
         httpStatus.BAD_REQUEST,
-        'Failed to delete semester registration !',
+        'Failed to delete semester registration!',
       );
     }
 
@@ -212,7 +211,7 @@ const deleteSemesterRegistrationFromDB = async (id: string) => {
     if (!deletedSemisterRegistration) {
       throw new AppError(
         httpStatus.BAD_REQUEST,
-        'Failed to delete semester registration !',
+        'Failed to delete semester registration!',
       );
     }
 
@@ -220,10 +219,11 @@ const deleteSemesterRegistrationFromDB = async (id: string) => {
     await session.endSession();
 
     return null;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
     await session.abortTransaction();
     await session.endSession();
-    throw new Error(err);
+    throw new AppError(httpStatus.BAD_REQUEST, err);
   }
 };
 

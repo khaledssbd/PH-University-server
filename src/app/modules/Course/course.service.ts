@@ -114,10 +114,11 @@ const updateCourseIntoDB = async (id: string, payload: Partial<TCourse>) => {
     );
 
     return result;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (err) {
     await session.abortTransaction();
     await session.endSession();
-    throw new AppError(httpStatus.BAD_REQUEST, 'Failed to update course');
+    throw new AppError(httpStatus.BAD_REQUEST, 'Failed to update course!');
   }
 };
 

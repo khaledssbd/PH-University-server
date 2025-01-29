@@ -11,7 +11,7 @@ const createOfferedCourse = catchAsync(async (req: Request, res: Response) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Offered Course is created successfully !',
+    message: 'Offered Course is created successfully!',
     data: result,
   });
 });
@@ -24,7 +24,7 @@ const getAllOfferedCourses = catchAsync(async (req: Request, res: Response) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'OfferedCourses retrieved successfully !',
+    message: 'OfferedCourses retrieved successfully!',
     meta: result.meta,
     data: result.result,
   });
@@ -39,7 +39,7 @@ const getSingleOfferedCourses = catchAsync(
     sendResponse(res, {
       statusCode: httpStatus.OK,
       success: true,
-      message: 'OfferedCourse fetched successfully',
+      message: 'OfferedCourse fetched successfully!',
       data: result,
     });
   },
@@ -55,7 +55,7 @@ const updateOfferedCourse = catchAsync(async (req: Request, res: Response) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'OfferedCourse updated successfully',
+    message: 'OfferedCourse updated successfully!',
     data: result,
   });
 });
@@ -67,7 +67,7 @@ const deleteOfferedCourseFromDB = catchAsync(
     sendResponse(res, {
       statusCode: httpStatus.OK,
       success: true,
-      message: 'OfferedCourse deleted successfully',
+      message: 'OfferedCourse deleted successfully!',
       data: result,
     });
   },
@@ -75,7 +75,7 @@ const deleteOfferedCourseFromDB = catchAsync(
 
 const getMyOfferedCourses = catchAsync(async (req: Request, res: Response) => {
   const userId = req.user.userId;
-  console.log(userId);
+  // console.log(userId);
   const result = await OfferedCourseServices.getMyOfferedCoursesFromDB(
     userId,
     req.query,
@@ -84,7 +84,7 @@ const getMyOfferedCourses = catchAsync(async (req: Request, res: Response) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'OfferedCourses retrieved successfully !',
+    message: 'OfferedCourses retrieved successfully!',
     meta: result.meta,
     data: result.result,
   });

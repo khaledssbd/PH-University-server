@@ -12,38 +12,38 @@ const createUserNameValidationSchema = z.object({
    body: z.object({
      password: z
        .string({
-         // required_error: 'Password is required',
-         invalid_type_error: 'Password must be a string',
+         // required_error: 'Password is required!',
+         invalid_type_error: 'Password must be a string!',
        })
-       .min(8, { message: "Password can't be less then 8 characters" })
-       .max(20, { message: "Password can't be more then 20 characters" })
+       .min(8, { message: "Password can't be less then 8 characters!" })
+       .max(20, { message: "Password can't be more then 20 characters!" })
        .optional(),
      admin: z.object({
        designation: z.string({
-         required_error: 'Designation is required',
-         invalid_type_error: 'Designation must be a string',
+         required_error: 'Designation is required!',
+         invalid_type_error: 'Designation must be a string!',
        }),
        name: createUserNameValidationSchema,
        gender: z.enum([...Gender] as [string, ...string[]]),
        dateOfBirth: z.string().optional(),
-       email: z.string().trim().email({ message: 'Invalid email address' }),
+       email: z.string().trim().email({ message: 'Invalid email address!' }),
        contactNo: z
          .string()
          .trim()
-         .min(1, { message: 'Contact Number is required' }),
+         .min(1, { message: 'Contact Number is required!' }),
        emergencyContactNo: z
          .string()
          .trim()
-         .min(1, { message: 'Emergency Contact Number is required' }),
+         .min(1, { message: 'Emergency Contact Number is required!' }),
        bloodGroup: z.enum([...BloodGroup] as [string, ...string[]]),
        presentAddress: z
          .string()
          .trim()
-         .min(1, { message: 'Present Address is required' }),
+         .min(1, { message: 'Present Address is required!' }),
        permanentAddress: z
          .string()
          .trim()
-         .min(1, { message: 'Permanent Address is required' }),
+         .min(1, { message: 'Permanent Address is required!' }),
       //  profileImg: z
       //    .string()
       //    .url({ message: 'Profile Image must be a valid URL' })

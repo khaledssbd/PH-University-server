@@ -10,6 +10,7 @@ import handleDuplicateError from '../errors/handleDuplicateError';
 import AppError from '../errors/AppError';
 
 // global error handling middleware (four parameters error handler)
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
   // settle default values
   let statusCode = httpStatus.INTERNAL_SERVER_ERROR;

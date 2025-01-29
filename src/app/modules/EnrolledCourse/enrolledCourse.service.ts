@@ -29,22 +29,22 @@ const createEnrolledCourseIntoDB = async (
 
   // checking if the course exists
   if (!isOfferedCourseExists) {
-    throw new AppError(httpStatus.NOT_FOUND, 'Offered course not found !');
+    throw new AppError(httpStatus.NOT_FOUND, 'Offered course not found!');
   }
 
   // checking if the room is full
   if (isOfferedCourseExists.maxCapacity <= 0) {
-    throw new AppError(httpStatus.BAD_GATEWAY, 'Room is full !');
+    throw new AppError(httpStatus.BAD_GATEWAY, 'Room is full!');
   }
 
   const student = await Student.findOne({ id: userId }, { _id: 1 }); // field filtering
 
   // checking if the student exists
   if (!student) {
-    throw new AppError(httpStatus.NOT_FOUND, 'Student not found !');
+    throw new AppError(httpStatus.NOT_FOUND, 'Student not found!');
   }
 
-  const isStudentAlreadyEnrolled = await EnrolledCourse.findById({
+  const isStudentAlreadyEnrolled = await EnrolledCourse.findOne({
     semesterRegistration: isOfferedCourseExists?.semesterRegistration,
     offeredCourse,
     student: student._id,
@@ -52,7 +52,7 @@ const createEnrolledCourseIntoDB = async (
 
   // checking if the student is already enrolled in the same semester
   if (isStudentAlreadyEnrolled) {
-    throw new AppError(httpStatus.CONFLICT, 'Student is already enrolled !');
+    throw new AppError(httpStatus.CONFLICT, 'Student is already enrolled!');
   }
 
   // check total credits exceeds maxCredit
@@ -105,7 +105,7 @@ const createEnrolledCourseIntoDB = async (
   if (totalCredits && maxCredit && totalCredits + currentCredit > maxCredit) {
     throw new AppError(
       httpStatus.BAD_REQUEST,
-      'You have exceeded maximum number of credits !',
+      'You have exceeded maximum number of credits!',
     );
   }
 
@@ -134,7 +134,7 @@ const createEnrolledCourseIntoDB = async (
     if (!result) {
       throw new AppError(
         httpStatus.BAD_REQUEST,
-        'Failed to enroll in this cousre !',
+        'Failed to enroll in this course!',
       );
     }
 
@@ -151,7 +151,7 @@ const createEnrolledCourseIntoDB = async (
   } catch (err: any) {
     await session.abortTransaction();
     await session.endSession();
-    throw new Error(err);
+    throw new AppError(httpStatus.BAD_REQUEST, err);
   }
 };
 
@@ -162,7 +162,7 @@ const getMyEnrolledCoursesFromDB = async (
   const student = await Student.findOne({ id: studentId });
 
   if (!student) {
-    throw new AppError(httpStatus.NOT_FOUND, 'Student not found !');
+    throw new AppError(httpStatus.NOT_FOUND, 'Student not found!');
   }
 
   const enrolledCourseQuery = new QueryBuilder(
@@ -196,23 +196,23 @@ const updateEnrolledCourseMarksIntoDB = async (
   if (!isSemesterRegistrationExists) {
     throw new AppError(
       httpStatus.NOT_FOUND,
-      'Semester registration not found !',
+      'Semester registration not found!',
     );
   }
 
   const isOfferedCourseExists = await OfferedCourse.findById(offeredCourse);
   if (!isOfferedCourseExists) {
-    throw new AppError(httpStatus.NOT_FOUND, 'Offered course not found !');
+    throw new AppError(httpStatus.NOT_FOUND, 'Offered course not found!');
   }
 
   const isStudentExists = await Student.findById(student);
   if (!isStudentExists) {
-    throw new AppError(httpStatus.NOT_FOUND, 'Student not found !');
+    throw new AppError(httpStatus.NOT_FOUND, 'Student not found!');
   }
 
   const faculty = await Faculty.findOne({ id: facultyId }, { _id: 1 });
   if (!faculty) {
-    throw new AppError(httpStatus.NOT_FOUND, 'Faculty not found !');
+    throw new AppError(httpStatus.NOT_FOUND, 'Faculty not found!');
   }
 
   const isCourseBelongToFaculty = await EnrolledCourse.findOne({
@@ -223,7 +223,7 @@ const updateEnrolledCourseMarksIntoDB = async (
   });
 
   if (!isCourseBelongToFaculty) {
-    throw new AppError(httpStatus.FORBIDDEN, 'You are forbidden! !');
+    throw new AppError(httpStatus.FORBIDDEN, 'You are forbidden!');
   }
 
   const modifiedData: Record<string, unknown> = {

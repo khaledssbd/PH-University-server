@@ -1,5 +1,6 @@
 import { TErrorSources, TGenericErrorResponse } from '../interface/error';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const handleDuplicateError = (err: any): TGenericErrorResponse => {
   const statusCode = 400;
 

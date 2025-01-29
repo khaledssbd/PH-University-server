@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import mongoose from 'mongoose';
 import config from '../../config';
 import { AcademicSemester } from '../academicSemester/academicSemester.model';
@@ -27,14 +28,14 @@ const createStudentIntoDB = async (
   //  old
   // //   for static method
   // //     if (await Student.isUserExists(studentData.id)) {
-  // //       throw new Error('User already exists');
+  // //       throw new AppError(httpStatus.CONFLICT, 'User already exists!');
   // //     }
 
   // //   for instance method
   // //   const student = new Student(studentData); // create an instance
   // //   // validate the Student model before saving
   // //   if (await student.isUserExists(studentData.id)) {
-  // //     throw new Error('User already exists');
+  // //     throw new AppError(httpStatus.CONFLICT, 'User already exists!');
   // //   }
   // //   const result = await student.save(); // built-in interface method
 
@@ -67,7 +68,7 @@ const createStudentIntoDB = async (
     payload.academicDepartment,
   );
   if (!academicDepartment) {
-    throw new AppError(400, 'Aademic department not found');
+    throw new AppError(httpStatus.NOT_FOUND, 'Academic department not found!');
   }
   payload.academicFaculty = academicDepartment?.academicFaculty;
 
@@ -93,7 +94,7 @@ const createStudentIntoDB = async (
     // create a user (transection-1)
     const newUser = await User.create([userData], { session }); // input should be in an array inside create in transection
 
-    // if (Object.keys(newUser).length) {
+    // if (Object.keys(newUser).length) {}
     if (!newUser.length) {
       throw new AppError(httpStatus.BAD_REQUEST, 'Failed to create user!');
     }
@@ -145,7 +146,7 @@ const createFacultyIntoDB = async (
 
   if (!academicDepartment) {
     throw new AppError(
-      httpStatus.BAD_REQUEST,
+      httpStatus.NOT_FOUND,
       'Academic department not found!',
     );
   }
@@ -194,7 +195,7 @@ const createFacultyIntoDB = async (
   } catch (err: any) {
     await session.abortTransaction();
     await session.endSession();
-    throw new Error(err);
+    throw new AppError(httpStatus.BAD_REQUEST, err);
   }
 };
 
@@ -256,7 +257,7 @@ const createAdminIntoDB = async (
   } catch (err: any) {
     await session.abortTransaction();
     await session.endSession();
-    throw new Error(err);
+    throw new AppError(httpStatus.BAD_REQUEST, err);
   }
 };
 

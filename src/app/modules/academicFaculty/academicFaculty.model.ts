@@ -21,7 +21,7 @@ const academicFacultySchema = new Schema<TAcademicFaculty>(
 //   });
 
 //   if (isFacultyExists) {
-//     throw new Error('Faculty already exists');
+//     throw new AppError(httpStatus.CONFLICT, 'Faculty already exists!');
 //   }
 //   next();
 // });
@@ -32,7 +32,7 @@ academicFacultySchema.pre('save', async function (next) {
   });
 
   if (isFacultyExists) {
-    throw new AppError(httpStatus.NOT_FOUND, 'This Faculty is already exist!');
+    throw new AppError(httpStatus.CONFLICT, 'This Faculty is already exist!');
   }
 
   next();
@@ -40,11 +40,11 @@ academicFacultySchema.pre('save', async function (next) {
 
 academicFacultySchema.pre('findOneAndUpdate', async function (next) {
   const query = this.getQuery();
-  console.log(query); // { _id: "655465489321321487" }
+  // console.log(query); // { _id: "655465489321321487" }
   const isFacultyExists = await AcademicFaculty.findOne(query);
 
   if (!isFacultyExists) {
-    throw new AppError(httpStatus.NOT_FOUND, 'This Faculty does not exist! ');
+    throw new AppError(httpStatus.NOT_FOUND, 'This Faculty does not exist!');
   }
 
   next();
