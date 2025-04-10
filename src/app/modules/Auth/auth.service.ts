@@ -39,14 +39,14 @@ const loginUser = async (payload: TLoginUser) => {
 
   const accessToken = createToken(
     jwtPayload,
-    config.jwt_access_secret as string,
-    config.jwt_access_expires_in as string,
+    config.jwt.jwt_access_secret as string,
+    config.jwt.jwt_access_expires_in as string,
   );
 
   const refreshToken = createToken(
     jwtPayload,
-    config.jwt_refresh_secret as string,
-    config.jwt_refresh_expires_in as string,
+    config.jwt.jwt_refresh_secret as string,
+    config.jwt.jwt_refresh_expires_in as string,
   );
 
   return {
@@ -105,7 +105,7 @@ const changePassword = async (
 
 const refreshToken = async (token: string) => {
   // checking if the given token is valid
-  const decoded = verifyToken(token, config.jwt_refresh_secret as string);
+  const decoded = verifyToken(token, config.jwt.jwt_refresh_secret as string);
 
   const { userId, iat } = decoded;
 
@@ -145,8 +145,8 @@ const refreshToken = async (token: string) => {
 
   const accessToken = createToken(
     jwtPayload,
-    config.jwt_access_secret as string,
-    config.jwt_access_expires_in as string,
+    config.jwt.jwt_access_secret as string,
+    config.jwt.jwt_access_expires_in as string,
   );
 
   return {
@@ -180,11 +180,11 @@ const forgetPassword = async (userId: string) => {
 
   const resetToken = createToken(
     jwtPayload,
-    config.jwt_access_secret as string,
+    config.jwt.jwt_access_secret as string,
     '10m',
   );
 
-  const resetUILink = `${config.reset_pass_ui_link}?id=${user.id}&token=${resetToken} `;
+  const resetUILink = `${config.jwt.reset_pass_ui_link}?id=${user.id}&token=${resetToken}`;
 
   sendEmail(user.email, resetUILink);
 
@@ -195,6 +195,14 @@ const resetPassword = async (
   payload: { id: string; newPassword: string },
   token: string,
 ) => {
+  // checking if the given token is valid(not empty string)
+  if (!token) {
+    throw new AppError(
+      httpStatus.UNAUTHORIZED,
+      'Token is required for reset password!',
+    );
+  }
+
   // checking if the user is exist
   const user = await User.isUserExistsByCustomId(payload?.id);
   if (!user) {
@@ -213,7 +221,7 @@ const resetPassword = async (
     throw new AppError(httpStatus.FORBIDDEN, 'This user is blocked!');
   }
 
-  const decoded = verifyToken(token, config.jwt_access_secret as string);
+  const decoded = verifyToken(token, config.jwt.jwt_access_secret as string);
 
   //localhost:3000?id=A-0001&token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJBLTAwMDEiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MDI4NTA2MTcsImV4cCI6MTcwMjg1MTIxN30.-T90nRaz8-KouKki1DkCSMAbsHyb9yDi0djZU3D6QO4
 

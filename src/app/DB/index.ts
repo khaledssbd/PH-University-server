@@ -5,8 +5,8 @@ import { User } from '../modules/user/user.model';
 
 const superUser = {
   id: '0001',
-  email: 'abedinforhan@gmail.com',
-  password: config.super_admin_password,
+  email: config.super.super_admin_email,
+  password: config.super.super_admin_password,
   needsPasswordChange: false,
   role: USER_ROLE.superAdmin,
   status: 'in-progress',

@@ -1,36 +1,11 @@
 import { z } from 'zod';
 import { BloodGroup } from '../user/user.constant';
+import { createUserNameValidationSchema } from '../user/user.validation';
 
 // schema validation using zod
 // in zod by default every field is required.. for optional must use .optional()
 
 // Create Student Schema
-
-// UserName Schema
-const createUserNameValidationSchema = z.object({
-  firstName: z
-    .string()
-    .trim()
-    .max(15, { message: 'First Name cannot exceed 15 characters!' })
-    .refine(
-      (value) =>
-        value.charAt(0) === value.charAt(0).toUpperCase() &&
-        value.slice(1) === value.slice(1).toLowerCase(),
-      { message: 'First Name must be in capitalized format!' },
-    ),
-  middleName: z
-    .string()
-    .trim()
-    .max(15, { message: 'Middle Name cannot exceed 15 characters!' })
-    .optional(),
-  lastName: z
-    .string()
-    .trim()
-    .max(15, { message: 'Last Name cannot exceed 15 characters!' })
-    .refine((value) => /^[a-zA-Z]+$/.test(value), {
-      message: 'Last Name must only contain alphabets!',
-    }),
-});
 
 // Guardian Schema
 const createGuardianValidationSchema = z.object({

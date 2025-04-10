@@ -1,7 +1,31 @@
 {
   "name": "ph-university",
-  "version": "1.0.0",
+  "author": {
+    "name": "Khaled Siddique",
+    "email": "khaled@example.com",
+    "url": "https://khaled-siddique.vercel.app"
+  },
+  "description": "A fast and lightweight university management platform built with MongoDB, NodeJS, ExpressJS and ReactJS.",
+  "keywords": [
+    "university",
+    "react",
+    "typescript",
+    "mongoose",
+    "nodejs",
+    "expressjs",
+    "mongodb"
+  ],
+  "license": "ISC",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/khaledssbd/PH-University-server.git"
+  },
+  "bugs": {
+    "url": "https://github.com/khaledssbd/PH-University-server/issues"
+  },
+  "homepage": "https://github.com/khaledssbd/PH-University-server#readme",
+  "version": "1.0.0",
   "scripts": {
     "start": "node ./dist/server.js",
     "start:prod": "node ./dist/server.js",
@@ -12,10 +36,6 @@
     "format": "prettier . --write",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
   "dependencies": {
     "bcrypt": "^5.1.1",
     "cloudinary": "^2.5.1",

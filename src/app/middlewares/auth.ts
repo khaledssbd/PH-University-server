@@ -14,11 +14,11 @@ const auth = (...requiredRoles: TUserRole[]) => {
     const token = req.headers.authorization;
     // checking if the token is missing
     if (!token) {
-      throw new AppError(httpStatus.UNAUTHORIZED, 'You are not authorized!');
+      throw new AppError(httpStatus.UNAUTHORIZED, 'You are not authorized!'); // browser token aneni, tai jate browser refreshToken diye notun accessToken ney o sheta niye ashe
     }
 
     // checking if the given token is valid
-    const decoded = verifyToken(token, config.jwt_access_secret as string);
+    const decoded = verifyToken(token, config.jwt.jwt_access_secret as string); // accessToken er meyad sesh tai jate browser refreshToken diye notun accessToken ney
 
     const { role, userId, iat } = decoded;
 
@@ -29,18 +29,18 @@ const auth = (...requiredRoles: TUserRole[]) => {
     }
 
     // checking if the user is already deleted
-    const isDeleted = user?.isDeleted;
+    const isDeleted = user.isDeleted;
     if (isDeleted) {
       throw new AppError(httpStatus.FORBIDDEN, 'This user is deleted!');
     }
 
     // checking if the user is blocked
-    const userStatus = user?.status;
+    const userStatus = user.status;
     if (userStatus === 'blocked') {
       throw new AppError(httpStatus.FORBIDDEN, 'This user is blocked!');
     }
 
-    // checking if the any hacker using a token even-after the user changed the password
+    // checking if any hacker using a token even-after the user changed the password
     if (
       user.passwordChangedAt &&
       (await User.isJWTIssuedBeforePasswordChanged(
@@ -49,14 +49,14 @@ const auth = (...requiredRoles: TUserRole[]) => {
       ))
     ) {
       throw new AppError(httpStatus.UNAUTHORIZED, 'You are not authorized!');
-    }
+    } // password change hoyeche tai jate browser refreshToken diye notun accessToken ney
 
     if (requiredRoles && !requiredRoles.includes(role)) {
       throw new AppError(
         httpStatus.UNAUTHORIZED,
         'You are not authorized yet!',
       );
-    }
+    } // ei route a user er access nei, tai kono vul hole jate browser refreshToken diye notun accessToken ney
 
     req.user = decoded as JwtPayload;
     next();

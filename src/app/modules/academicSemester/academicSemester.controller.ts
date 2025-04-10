@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // import { RequestHandler } from 'express';
 // import zodStudentValidationSchema from '../student/student.validation';
 import sendResponse from '../../utils/sendResponse';
@@ -35,7 +36,7 @@ const createAcademicSemester = catchAsync(async (req, res) => {
   //   message: 'Student is created successfully',
   //   data: result,
   // });
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
   sendResponse<any>(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -49,7 +50,7 @@ const getAllAcademicSemesters = catchAsync(async (req, res) => {
     req.query,
   );
 
-  sendResponse(res, {
+  sendResponse<any>(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: 'Academic semesters are retrieved successfully!',
@@ -63,7 +64,7 @@ const getSingleAcademicSemester = catchAsync(async (req, res) => {
   const result =
     await AcademicSemesterServices.getSingleAcademicSemesterFromDB(id);
 
-  sendResponse(res, {
+  sendResponse<any>(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: 'Academic semester is retrieved succesfully!',
@@ -78,7 +79,7 @@ const updateAcademicSemester = catchAsync(async (req, res) => {
     req.body,
   );
 
-  sendResponse(res, {
+  sendResponse<any>(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: 'Academic semester is retrieved succesfully!',

@@ -16,7 +16,7 @@ router.post(
   '/create-student',
   auth(USER_ROLE.superAdmin, USER_ROLE.admin),
   upload.single('file'),
-  (req: Request, res: Response, next: NextFunction) => {
+  (req: Request, _res: Response, next: NextFunction) => {
     req.body = JSON.parse(req.body.data);
     next();
   },
@@ -28,7 +28,7 @@ router.post(
   '/create-faculty',
   auth(USER_ROLE.superAdmin, USER_ROLE.admin),
   upload.single('file'),
-  (req: Request, res: Response, next: NextFunction) => {
+  (req: Request, _res: Response, next: NextFunction) => {
     req.body = JSON.parse(req.body.data);
     next();
   },
@@ -40,7 +40,7 @@ router.post(
   '/create-admin',
   auth(USER_ROLE.superAdmin, USER_ROLE.admin),
   upload.single('file'),
-  (req: Request, res: Response, next: NextFunction) => {
+  (req: Request, _res: Response, next: NextFunction) => {
     req.body = JSON.parse(req.body.data);
     next();
   },

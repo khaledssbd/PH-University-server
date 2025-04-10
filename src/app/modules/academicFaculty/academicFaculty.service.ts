@@ -39,7 +39,7 @@ const updateAcademicFacultyIntoDB = async (
   payload: Partial<TAcademicFaculty>,
 ) => {
   const result = await AcademicFaculty.findByIdAndUpdate(id, payload, {
-    new: true,
+    new: true, // returns the updated document, lest it returns the old document
   });
   return result;
 };

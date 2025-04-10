@@ -9,6 +9,7 @@ import queryBuilder from '../../builder/QueryBuilder';
 import { studentSearchableFields } from './student.constant';
 
 const getAllStudentsFromDB = async (query: Record<string, unknown>) => {
+  // http://localhost:5000/api/v1/students?searchTerm=khaled&email=khaledssbd@gmail.com&sort=-email,dateOfBirth&page=2&limit=10&fields=name,email
   // const queryObj = { ...query }; // copy
   // // { email: { $regex: query.searchTerm, $options: 'i' }}
   // // { presentAddress: { $regex: query.searchTerm, $options: 'i' }}
@@ -35,10 +36,12 @@ const getAllStudentsFromDB = async (query: Record<string, unknown>) => {
 
   // // filtering
   // const excludeFields = ['searchTerm', 'sort', 'page', 'limit', 'fields'];
-  // excludeFields.forEach((field) => delete queryObj[field]);
+  // excludeFields.forEach((field) => delete queryObj[field]); // only keep fielterField and value
+
+  // console.log({ query }, { queryObj });
 
   // const filterQuery = searchQuery
-  //   .find(queryObj)
+  //   .find(queryObj) // email=khaledssbd@gmail.com
   //   .populate('admissionSemester')
   //   .populate({
   //     path: 'academicDepartment',
@@ -48,6 +51,7 @@ const getAllStudentsFromDB = async (query: Record<string, unknown>) => {
   // // sorting the number of the documents of filterQuery
   // let sort = '-createdAt';
   // if (query.sort) {
+  //   // sort = (query.sort as string)?.replace(',', ' ');
   //   sort = (query.sort as string)?.split(',')?.join(' ');
   // }
   // const sortQuery = filterQuery.sort(sort);
@@ -82,9 +86,12 @@ const getAllStudentsFromDB = async (query: Record<string, unknown>) => {
   //   fields = (query.fields as string)?.split(',')?.join(' ');
   // }
 
-  // const fieldQuery = await limitQuery.select(fields)
+  // const fieldQuery = await limitQuery.select(fields);
 
   // return fieldQuery;
+
+  // -----------------------------------------------------------------------------------------
+  // http://localhost:5000/api/v1/students?searchTerm=khaled&email=khaledssbd@gmail.com&sort=-email,dateOfBirth&page=2&limit=10&fields=name,email
 
   const studentQuery = new queryBuilder(
     Student.find()

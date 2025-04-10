@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Request, Response } from 'express';
 import httpStatus from 'http-status';
 import catchAsync from '../../utils/catchAsync';
@@ -8,7 +9,7 @@ const createOfferedCourse = catchAsync(async (req: Request, res: Response) => {
   const result = await OfferedCourseServices.createOfferedCourseIntoDB(
     req.body,
   );
-  sendResponse(res, {
+  sendResponse<any>(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: 'Offered Course is created successfully!',
@@ -21,7 +22,7 @@ const getAllOfferedCourses = catchAsync(async (req: Request, res: Response) => {
     req.query,
   );
 
-  sendResponse(res, {
+  sendResponse<any>(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: 'OfferedCourses retrieved successfully!',
@@ -36,7 +37,7 @@ const getSingleOfferedCourses = catchAsync(
     const { id } = req.params;
     const result = await OfferedCourseServices.getSingleOfferedCourseFromDB(id);
 
-    sendResponse(res, {
+    sendResponse<any>(res, {
       statusCode: httpStatus.OK,
       success: true,
       message: 'OfferedCourse fetched successfully!',
@@ -52,7 +53,7 @@ const updateOfferedCourse = catchAsync(async (req: Request, res: Response) => {
     id,
     req.body,
   );
-  sendResponse(res, {
+  sendResponse<any>(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: 'OfferedCourse updated successfully!',
@@ -64,7 +65,7 @@ const deleteOfferedCourseFromDB = catchAsync(
   async (req: Request, res: Response) => {
     const { id } = req.params;
     const result = await OfferedCourseServices.deleteOfferedCourseFromDB(id);
-    sendResponse(res, {
+    sendResponse<any>(res, {
       statusCode: httpStatus.OK,
       success: true,
       message: 'OfferedCourse deleted successfully!',
@@ -81,7 +82,7 @@ const getMyOfferedCourses = catchAsync(async (req: Request, res: Response) => {
     req.query,
   );
 
-  sendResponse(res, {
+  sendResponse<any>(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: 'OfferedCourses retrieved successfully!',

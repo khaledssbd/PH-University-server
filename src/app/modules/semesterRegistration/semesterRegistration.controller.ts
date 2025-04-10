@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Request, Response } from 'express';
 import httpStatus from 'http-status';
 import catchAsync from '../../utils/catchAsync';
@@ -11,7 +12,7 @@ const createSemesterRegistration = catchAsync(
         req.body,
       );
 
-    sendResponse(res, {
+    sendResponse<any>(res, {
       statusCode: httpStatus.OK,
       success: true,
       message: 'Semester Registration is created successfully!',
@@ -27,7 +28,7 @@ const getAllSemesterRegistrations = catchAsync(
         req.query,
       );
 
-    sendResponse(res, {
+    sendResponse<any>(res, {
       statusCode: httpStatus.OK,
       success: true,
       message: 'Semester Registration is retrieved successfully!',
@@ -46,7 +47,7 @@ const getSingleSemesterRegistration = catchAsync(
         id,
       );
 
-    sendResponse(res, {
+    sendResponse<any>(res, {
       statusCode: httpStatus.OK,
       success: true,
       message: 'Semester Registration is retrieved successfully!',
@@ -64,7 +65,7 @@ const updateSemesterRegistration = catchAsync(
         req.body,
       );
 
-    sendResponse(res, {
+    sendResponse<any>(res, {
       statusCode: httpStatus.OK,
       success: true,
       message: 'Semester Registration is updated successfully!',
@@ -79,7 +80,7 @@ const deleteSemesterRegistration = catchAsync(
     const result =
       await SemesterRegistrationService.deleteSemesterRegistrationFromDB(id);
 
-    sendResponse(res, {
+    sendResponse<any>(res, {
       statusCode: httpStatus.OK,
       success: true,
       message: 'Semester Registration is updated successfully!',

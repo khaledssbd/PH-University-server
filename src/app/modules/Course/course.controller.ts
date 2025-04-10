@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import httpStatus from 'http-status';
 import catchAsync from '../../utils/catchAsync';
 import sendResponse from '../../utils/sendResponse';
@@ -6,7 +7,7 @@ import { CourseServices } from './course.service';
 const createCourse = catchAsync(async (req, res) => {
   const result = await CourseServices.createCourseIntoDB(req.body);
 
-  sendResponse(res, {
+  sendResponse<any>(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: 'Course is created succesfully!',
@@ -17,7 +18,7 @@ const createCourse = catchAsync(async (req, res) => {
 const getAllCourses = catchAsync(async (req, res) => {
   const result = await CourseServices.getAllCoursesFromDB(req.query);
 
-  sendResponse(res, {
+  sendResponse<any>(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: 'Course are retrieved successfully!',
@@ -30,7 +31,7 @@ const getSingleCourse = catchAsync(async (req, res) => {
   const { id } = req.params;
   const result = await CourseServices.getSingleCourseFromDB(id);
 
-  sendResponse(res, {
+  sendResponse<any>(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: 'Course is retrieved succesfully!',
@@ -42,7 +43,7 @@ const updateCourse = catchAsync(async (req, res) => {
   const { id } = req.params;
   const result = await CourseServices.updateCourseIntoDB(id, req.body);
 
-  sendResponse(res, {
+  sendResponse<any>(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: 'course is updated succesfully!',
@@ -54,7 +55,7 @@ const deleteCourse = catchAsync(async (req, res) => {
   const { id } = req.params;
   const result = await CourseServices.deleteCourseFromDB(id);
 
-  sendResponse(res, {
+  sendResponse<any>(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: 'Course is deleted succesfully!',
@@ -71,7 +72,7 @@ const assignFacultiesWithCourse = catchAsync(async (req, res) => {
     faculties,
   );
 
-  sendResponse(res, {
+  sendResponse<any>(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: 'Faculties assigned  succesfully!',
@@ -84,7 +85,7 @@ const getFacultiesWithCourse = catchAsync(async (req, res) => {
 
   const result = await CourseServices.getFacultiesWithCourseFromDB(courseId);
 
-  sendResponse(res, {
+  sendResponse<any>(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: 'Faculties retrieved succesfully!',
@@ -101,7 +102,7 @@ const removeFacultiesFromCourse = catchAsync(async (req, res) => {
     faculties,
   );
 
-  sendResponse(res, {
+  sendResponse<any>(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: 'Faculties removed  succesfully!',

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import httpStatus from 'http-status';
 import catchAsync from '../../utils/catchAsync';
 import sendResponse from '../../utils/sendResponse';
@@ -7,7 +8,7 @@ const createAcademicDepartmemt = catchAsync(async (req, res) => {
   const result =
     await AcademicDepartmentServices.createAcademicDepartmentIntoDB(req.body);
 
-  sendResponse(res, {
+  sendResponse<any>(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: 'Academic department is created successfully!',
@@ -19,7 +20,7 @@ const getAllAcademicDepartments = catchAsync(async (req, res) => {
   const result =
     await AcademicDepartmentServices.getAllAcademicDepartmentsFromDB(req.query);
 
-  sendResponse(res, {
+  sendResponse<any>(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: 'Academic departments are retrieved successfully!',
@@ -33,7 +34,7 @@ const getSingleAcademicDepartment = catchAsync(async (req, res) => {
   const result =
     await AcademicDepartmentServices.getSingleAcademicDepartmentFromDB(id);
 
-  sendResponse(res, {
+  sendResponse<any>(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: 'Academic department is retrieved successfully!',
@@ -49,7 +50,7 @@ const updateAcademicDepartment = catchAsync(async (req, res) => {
       req.body,
     );
 
-  sendResponse(res, {
+  sendResponse<any>(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: 'Academic department is updated successfully!',

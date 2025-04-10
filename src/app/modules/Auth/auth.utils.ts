@@ -19,7 +19,7 @@ export const verifyToken = (token: string, secret: string) => {
     decoded = jwt.verify(token, secret) as JwtPayload;
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
-    throw new AppError(httpStatus.UNAUTHORIZED, 'Unauthorized!');
+    throw new AppError(httpStatus.UNAUTHORIZED, 'You are not authorized!'); // accessToken er meyad sesh tai jate browser refreshToken diye notun accessToken ney
   }
 
   return decoded;

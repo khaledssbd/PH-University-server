@@ -1,21 +1,22 @@
 import { z } from 'zod';
 import { Gender } from './faculty.constant';
 import { BloodGroup } from '../user/user.constant';
+import { createUserNameValidationSchema } from '../user/user.validation';
 
 
 // create Schema
 // create UserName Schema
-const createUserNameValidationSchema = z.object({
-  firstName: z
-    .string()
-    .min(1)
-    .max(20)
-    .refine((value) => /^[A-Z]/.test(value), {
-      message: 'First Name must start with a capital letter!',
-    }),
-  middleName: z.string(),
-  lastName: z.string(),
-});
+// const createUserNameValidationSchema = z.object({
+//   firstName: z
+//     .string()
+//     .min(1)
+//     .max(20)
+//     .refine((value) => /^[A-Z]/.test(value), {
+//       message: 'First Name must start with a capital letter!',
+//     }),
+//   middleName: z.string(),
+//   lastName: z.string(),
+// });
 
 
 // create Faculty Main Schema

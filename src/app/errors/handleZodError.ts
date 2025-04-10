@@ -1,6 +1,7 @@
 import { ZodError, ZodIssue } from 'zod';
 import { TErrorSources, TGenericErrorResponse } from '../interface/error';
 
+// zod-validation error handler
 const handleZodError = (err: ZodError): TGenericErrorResponse => {
   const statusCode = 400;
 

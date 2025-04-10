@@ -6,6 +6,11 @@ import { EnrolledCourseValidations } from './enrolledCourse.validaton';
 import { USER_ROLE } from '../user/user.constant';
 
 const router = express.Router();
+router.get(
+  '/',
+  auth(USER_ROLE.faculty),
+  EnrolledCourseControllers.getEnrolledCoursesByFaculty,
+);
 
 router.post(
   '/create-enrolled-course',

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { StudentServices } from './student.service';
 import sendResponse from '../../utils/sendResponse';
 import httpStatus from 'http-status';
@@ -12,7 +13,6 @@ const getAllStudents = catchAsync(async (req, res) => {
   //   data: result,
   // });
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   sendResponse<any>(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -32,7 +32,6 @@ const getStudentById = catchAsync(async (req, res) => {
   //   data: result,
   // });
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   sendResponse<any>(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -52,7 +51,7 @@ const updateStudentById = catchAsync(async (req, res) => {
   //   data: result,
   // });
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
   sendResponse<any>(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -71,7 +70,7 @@ const deleteStudentById = catchAsync(async (req, res) => {
   //   data: result,
   // });
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
   sendResponse<any>(res, {
     statusCode: httpStatus.OK,
     success: true,

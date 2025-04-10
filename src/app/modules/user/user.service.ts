@@ -83,8 +83,9 @@ const createStudentIntoDB = async (
     userData.id = await generateStudentId(admissionSemester);
 
     if (file) {
-      const imageName = `${userData.id}${payload?.name?.firstName}`;
-      const path = file?.path;
+      const imageName = `${userData.id}-${payload?.name?.firstName}`;
+      // const path = file?.path;
+      const path = file?.buffer;
 
       // send image to cloudinary
       const { secure_url } = await sendImageToCloudinary(imageName, path);
@@ -145,10 +146,7 @@ const createFacultyIntoDB = async (
   );
 
   if (!academicDepartment) {
-    throw new AppError(
-      httpStatus.NOT_FOUND,
-      'Academic department not found!',
-    );
+    throw new AppError(httpStatus.NOT_FOUND, 'Academic department not found!');
   }
   payload.academicFaculty = academicDepartment?.academicFaculty;
 
@@ -181,7 +179,6 @@ const createFacultyIntoDB = async (
     payload.user = newUser[0]._id; //reference _id
 
     // create a faculty (transaction-2)
-
     const newFaculty = await Faculty.create([payload], { session });
 
     if (!newFaculty.length) {
@@ -262,7 +259,7 @@ const createAdminIntoDB = async (
 };
 
 const getMe = async (userId: string, role: string) => {
-  // const decoded = verifyToken(token, config.jwt_access_secret as string);
+  // const decoded = verifyToken(token, config.jwt.jwt_access_secret as string);
   // const { userId, role } = decoded;
 
   let result = null;

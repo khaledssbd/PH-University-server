@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import config from './app/config';
 import app from './app';
 import { Server } from 'http';
-import seedSuperAdmin from './app/DB/intex';
+import seedSuperAdmin from './app/DB';
 
 let server: Server;
 async function main() {
@@ -15,7 +15,7 @@ async function main() {
 
     // all app listening will be here
     server = app.listen(config.port, () => {
-      console.log(`The app is running on port ${config.port} ✨`);
+      console.log(`🚀 Application is running on port ${config.port} ✨`);
     });
   } catch (err) {
     console.log(err);

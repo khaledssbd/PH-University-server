@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import httpStatus from 'http-status';
 import config from '../../config';
 import catchAsync from '../../utils/catchAsync';
@@ -11,11 +12,11 @@ const loginUser = catchAsync(async (req, res) => {
   res.cookie('refreshToken', refreshToken, {
     secure: config.NODE_ENV === 'production',
     httpOnly: true,
-    sameSite: 'none',
+    sameSite: config.NODE_ENV === 'production' ? 'none' : 'lax',
     maxAge: 1000 * 60 * 60 * 24 * 365, // one year
   });
 
-  sendResponse(res, {
+  sendResponse<any>(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: 'User is logged in succesfully!',
@@ -30,7 +31,7 @@ const changePassword = catchAsync(async (req, res) => {
   const { ...passwordData } = req.body; // rest operator makes an array
 
   const result = await AuthServices.changePassword(req.user, passwordData);
-  sendResponse(res, {
+  sendResponse<any>(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: 'Password is updated succesfully!',
@@ -40,9 +41,12 @@ const changePassword = catchAsync(async (req, res) => {
 
 const refreshToken = catchAsync(async (req, res) => {
   const { refreshToken } = req.cookies;
+
+  console.log(refreshToken);
+
   const result = await AuthServices.refreshToken(refreshToken);
 
-  sendResponse(res, {
+  sendResponse<any>(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: 'Access token is retrieved succesfully!',
@@ -53,7 +57,7 @@ const refreshToken = catchAsync(async (req, res) => {
 const forgetPassword = catchAsync(async (req, res) => {
   const userId = req.body.id;
   const result = await AuthServices.forgetPassword(userId);
-  sendResponse(res, {
+  sendResponse<any>(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: 'Reset link is generated succesfully!',
@@ -63,15 +67,10 @@ const forgetPassword = catchAsync(async (req, res) => {
 
 const resetPassword = catchAsync(async (req, res) => {
   const token = req.headers.authorization;
-  // if (!token) {
-  //   throw new AppError(
-  //     httpStatus.UNAUTHORIZED,
-  //     'Token is required for reset password!',
-  //   );
-  // }
 
   const result = await AuthServices.resetPassword(req.body, token ?? '');
-  sendResponse(res, {
+
+  sendResponse<any>(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: 'Password reset successful!',

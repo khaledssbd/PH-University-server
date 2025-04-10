@@ -1,4 +1,5 @@
 import { FilterQuery, Query } from 'mongoose';
+// http://localhost:5000/api/v1/students?searchTerm=khaled&email=khaledssbd@gmail.com&sort=-email,dateOfBirth&page=2&limit=10&fields=name,email
 
 class QueryBuilder<T> {
   public modelQuery: Query<T[], T>;
@@ -43,8 +44,8 @@ class QueryBuilder<T> {
   sort() {
     const sort =
       (this?.query?.sort as string)?.split(',')?.join(' ') || '-createdAt';
-    
-    this.modelQuery = this.modelQuery.sort(sort as string);
+
+    this.modelQuery = this.modelQuery.sort(sort);
 
     return this;
   }
@@ -62,7 +63,7 @@ class QueryBuilder<T> {
   fields() {
     const fields =
       (this?.query?.fields as string)?.split(',')?.join(' ') || '-__V';
-    
+
     this.modelQuery = this.modelQuery.select(fields);
 
     return this;

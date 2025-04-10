@@ -1,12 +1,13 @@
 import { z } from 'zod';
 import { Gender } from './admin.constant';
 import { BloodGroup } from '../user/user.constant';
+import { createUserNameValidationSchema } from '../user/user.validation';
 
-const createUserNameValidationSchema = z.object({
-  firstName: z.string().min(1).max(20),
-  middleName: z.string().max(20),
-  lastName: z.string().max(20),
-});
+// const createUserNameValidationSchema = z.object({
+//   firstName: z.string().min(1).max(20),
+//   middleName: z.string().max(20),
+//   lastName: z.string().max(20),
+// });
 
  const createAdminValidationSchema = z.object({
    body: z.object({

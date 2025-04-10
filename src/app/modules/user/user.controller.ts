@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // import zodStudentValidationSchema from '../student/student.validation';
 import { UserServices } from './user.service';
 import sendResponse from '../../utils/sendResponse';
@@ -36,7 +37,7 @@ const createStudent = catchAsync(async (req, res) => {
   //   message: 'Student is created successfully',
   //   data: result,
   // });
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
   sendResponse<any>(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -54,7 +55,7 @@ const createFaculty = catchAsync(async (req, res) => {
     facultyData,
   );
 
-  sendResponse(res, {
+  sendResponse<any>(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: 'Faculty is created succesfully!',
@@ -71,7 +72,7 @@ const createAdmin = catchAsync(async (req, res) => {
     adminData,
   );
 
-  sendResponse(res, {
+  sendResponse<any>(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: 'Admin is created succesfully!',
@@ -89,7 +90,7 @@ const getMe = catchAsync(async (req, res) => {
 
   const result = await UserServices.getMe(userId, role);
 
-  sendResponse(res, {
+  sendResponse<any>(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: 'User is retrieved succesfully!',
@@ -102,7 +103,7 @@ const changeStatus = catchAsync(async (req, res) => {
 
   const result = await UserServices.changeStatus(id, req.body);
 
-  sendResponse(res, {
+  sendResponse<any>(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: 'Status is updated succesfully!',

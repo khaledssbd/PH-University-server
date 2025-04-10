@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import httpStatus from 'http-status';
 import catchAsync from '../../utils/catchAsync';
 import sendResponse from '../../utils/sendResponse';
@@ -8,7 +9,7 @@ const createAcademicFaculty = catchAsync(async (req, res) => {
     req.body,
   );
 
-  sendResponse(res, {
+  sendResponse<any>(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: 'Academic faculty is created succesfully!',
@@ -19,7 +20,7 @@ const createAcademicFaculty = catchAsync(async (req, res) => {
 const getAllAcademicFaculties = catchAsync(async (req, res) => {
   const result = await AcademicFacultyServices.getAllAcademicFacultiesFromDB(req.query);
 
-  sendResponse(res, {
+  sendResponse<any>(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: 'Academic faculties are retrieved successfully!',
@@ -33,7 +34,7 @@ const getSingleAcademicFaculty = catchAsync(async (req, res) => {
   const result =
     await AcademicFacultyServices.getSingleAcademicFacultyFromDB(id);
 
-  sendResponse(res, {
+  sendResponse<any>(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: 'Academic faculty is retrieved succesfully!',
@@ -48,7 +49,7 @@ const updateAcademicFaculty = catchAsync(async (req, res) => {
     req.body,
   );
 
-  sendResponse(res, {
+  sendResponse<any>(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: 'Academic faculty is updated succesfully!',

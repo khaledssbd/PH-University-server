@@ -2,6 +2,7 @@ import { RequestHandler } from 'express';
 import httpStatus from 'http-status';
 
 // Not Found page (Route is not found)  (must be in botom)
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const notFound: RequestHandler = async (req, res, next) => {
   res.status(httpStatus.NOT_FOUND).json({
     success: false,
